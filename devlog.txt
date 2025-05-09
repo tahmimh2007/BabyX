@@ -1,4 +1,8 @@
 05-08 11:00AM:
 Ben Rudinski
-- Updated devlog database
+- Design Doc Change - Updated devlog database
 - Reuploaded to github
+
+05-09 10:47AM:
+Vedant Kothari
+- Added project description to README
