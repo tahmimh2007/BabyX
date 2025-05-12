@@ -1,5 +1,6 @@
 import json
-import randomCountryimport sqlite3
+import randomCountry
+import sqlite3
 from flask import Flask, render_template, request, session, redirect, flash, url_for
 
 app = Flask(__name__)
