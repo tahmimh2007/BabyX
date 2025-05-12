@@ -1,8 +1,12 @@
-05-08 11:00AM:
-Ben Rudinski
-- Design Doc Change - Updated devlog database
-- Reuploaded to github
+Ben Rudinski -- 2025-05-08 11:00:
+* Design Doc Change - Updated devlog database
+* Reuploaded to github
 
-05-09 10:47AM:
-Vedant Kothari
-- Added project description to README
+Vedant Kothari -- 2025-05-09 10:47:
+* Added project description to README
+
+Vedant Kothari -- 2025-05-12 10:48:
+* Created templates
+
+Yinwei Zhang -- 2025-05-12 10:48:
+* Added requirements.txt
