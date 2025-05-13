@@ -10,3 +10,9 @@ Vedant Kothari -- 2025-05-12 10:48:
 
 Yinwei Zhang -- 2025-05-12 10:48:
 * Added requirements.txt
+
+Tahmim Hassan -- 2025-05-12 20:40:
+* edited requirements.txt
+* added base for templates, added database functioning for login and register
+* added connections between pages
+* fixed webpages to run flask app
