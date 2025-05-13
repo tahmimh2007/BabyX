@@ -39,6 +39,25 @@ def logout():
         flash(f"{user}, you have been logged out.", "success")
     return redirect(url_for("home"))
 
+@app.route("/practice")
+def practice():
+    if "username" in session:
+        return render_template("practice.html")
+    return redirect(url_for("login"))
+
+@app.route("/study_guide")
+def study_guide():
+    if "username" in session:
+        return render_template("study_guide.html")
+    return redirect(url_for("login"))
+
+@app.route("/whiteboard")
+def whiteboard():
+    if "username" in session:
+        return render_template("whiteboard.html")
+    return redirect(url_for("login"))
+
+
 if __name__ == "__main__":
     create_tables()  # Initialize database tables before starting the app
     app.run(host='0.0.0.0')
