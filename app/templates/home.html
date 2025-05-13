@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>Home</title></head>
+<body>
+    <h1>Welcome{% if username %}, {{ username }}{% endif %}!</h1>
+    {% if username %}
+        <a href="{{ url_for('logout') }}">Logout</a><br>
+        <a href="{{ url_for('practice') }}">Practice</a><br>
+        <a href="{{ url_for('study_guide') }}">Study Guide</a><br>
+        <a href="{{ url_for('whiteboard') }}">Whiteboard</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a> |
+        <a href="{{ url_for('register') }}">Register</a>
+    {% endif %}
+</body>
+</html>
