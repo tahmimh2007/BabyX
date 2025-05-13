@@ -12,7 +12,10 @@ Yinwei Zhang -- 2025-05-12 10:48:
 * Added requirements.txt
 
 Tahmim Hassan -- 2025-05-12 20:40:
-* edited requirements.txt
-* added base for templates, added database functioning for login and register
-* added connections between pages
-* fixed webpages to run flask app
+* Edited requirements.txt
+* Added base for templates, added database functioning for login and register
+* Added connections between pages
+* Fixed webpages to run flask app
+
+Vedant Kothari -- 2025-05-13 10:30:
+* Added install guide on README
