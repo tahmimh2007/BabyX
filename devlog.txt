@@ -19,3 +19,7 @@ Tahmim Hassan -- 2025-05-12 20:40:
 
 Vedant Kothari -- 2025-05-13 10:30:
 * Added install guide on README
+
+Vedant Kothari -- 2025-05-14 10:45:
+* Added templates for static folder
+* Began working on styling for login and register pages
