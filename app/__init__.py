@@ -1,15 +1,65 @@
-import json
-# import randomCountry
-import sqlite3
-from flask import Flask, render_template, request, session, redirect, flash, url_for
+from flask import Flask, render_template, flash, request, redirect, url_for, session
+from db_functions import register_user, login_user, create_tables
+import os
 
 app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(32)
+
 @app.route("/")
 def home():
+    if "username" in session:
+        return render_template("home.html", username=session["username"])
     return render_template("home.html")
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        login_user()
+        if "username" in session:
+            return redirect(url_for("home"))
+        return redirect(url_for("login"))
+    return render_template("login.html")
 
-if __name__ == "__main__": #false if this file imported as module
-    #enable debugging, auto-restarting of server when this file is modified
-    app.debug = True
-    app.run()
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        result = register_user()
+        if result == "success":
+            flash("Registration successful! Please log in.", "success")
+            return redirect(url_for("login"))
+        else:
+            flash("Registration failed. Username may already exist.", "error")
+            return redirect(url_for("register"))
+    return render_template("register.html")
+
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+    if "username" in session:
+        user = session.pop("username")
+        flash(f"{user}, you have been logged out.", "success")
+    return redirect(url_for("home"))
+
+@app.route("/practice")
+def practice():
+    if "username" in session:
+        return render_template("practice.html")
+    return redirect(url_for("login"))
+
+@app.route("/study_guide")
+def study_guide():
+    if "username" in session:
+        return render_template("study_guide.html")
+    return redirect(url_for("login"))
+
+@app.route("/whiteboard")
+def whiteboard():
+    if "username" in session:
+        return render_template("whiteboard.html")
+    return redirect(url_for("login"))
+
+
+if __name__ == "__main__":
+    create_tables()  # Initialize database tables before starting the app
+    app.run(host='0.0.0.0')
+
+application = app
