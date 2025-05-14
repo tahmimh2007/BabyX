@@ -1,9 +1,48 @@
 <!DOCTYPE html>
 <html>
-<head><title>Whiteboard</title></head>
+<head><title>Your imagination is your limiting factor!</title>
+<style>
+#whiteboard {
+  border: 3px solid black;
+  cursor: crosshair;
+}
+</style>
+</head>
 <body>
     <h1>Whiteboard Page</h1>
-    <p>Draw or write notes here.</p>
+    <canvas id="whiteboard" width = "800" height="600"></canvas>
+    <script>
+    const canvas = document.getElementById('whiteboard');
+    const ctx = canvas.getContext('2d');
+    let drawing = 0;
+    let mode = 0;
+
+    //As there will be multiple actions users can take depending on what mode they have selected
+    //i.e: draw, erase, color, etc. (mainly focus on draw, erase, maybe adding shapes, or even text box)
+    //these are all general commands right now, these actions should be switched based on mode.
+    canvas.addEventListener('mousedown', startAction);
+    canvas.addEventListener('mousemove', continueAction);
+    canvas.addEventListener('mouseup', stopAction);
+    canvas.addEventListener('mouseout', stopAction);
+
+    function startAction(e) {
+      if (mode = drawing){
+        draw(e);
+      }
+    }
+
+    function draw(e) {
+      if (!drawing) return;
+      ctx.linewidth = 5;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = 'black';
+
+      ctx.lineTo(e.clientX - canvas.offsetleft, e.clientY - canvas.offsetTop);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(e.clientX - canvas.offsetleft, e.clientY - canvas.offsetTop);
+    }
+    </script>
     <a href="{{ url_for('home') }}">Back to Home</a>
 </body>
 </html>
