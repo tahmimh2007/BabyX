@@ -23,3 +23,9 @@ Vedant Kothari -- 2025-05-13 10:30:
 Vedant Kothari -- 2025-05-14 10:45:
 * Added templates for static folder
 * Began working on styling for login and register pages
+
+Ben Rudinski -- 2025-05-14 8:43:
+* Updates all templates so they look better
+* Added save/clear whiteboard
+* Added eraser, shapes, line, size tools
+* You can load a PNG as a whiteboard now
