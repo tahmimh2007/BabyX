@@ -84,6 +84,11 @@
         const canvas = document.getElementById('whiteboard');
         const ctx = canvas.getContext('2d');
 
+        const offscreenCanvas = document.createElement('canvas');
+        const offscreenCtx = offscreenCanvas.getContext('2d');
+        offscreenCanvas.width = canvas.width;
+        offscreenCanvas.height = canvas.height;
+
         let tool = 'draw';
         let drawing = false;
         let startX = 0, startY = 0;
@@ -104,6 +109,10 @@
             if (tool === 'draw' || tool === 'eraser') {
                 ctx.beginPath();
                 ctx.moveTo(startX, startY);
+            } else {
+                // Save current canvas state
+                offscreenCtx.clearRect(0, 0, canvas.width, canvas.height);
+                offscreenCtx.drawImage(canvas, 0, 0);
             }
         });
 
@@ -113,26 +122,40 @@
             const x = e.offsetX;
             const y = e.offsetY;
 
-            if (tool === 'draw') {
-                ctx.strokeStyle = colorPicker.value;
+            if (tool === 'draw' || tool === 'eraser') {
+                ctx.strokeStyle = tool === 'draw' ? colorPicker.value : "#fdf6f0";
                 ctx.lineWidth = brushSize.value;
                 ctx.lineCap = 'round';
                 ctx.lineTo(x, y);
                 ctx.stroke();
-            }
+            } else if (tool === 'line' || tool === 'rect' || tool === 'circle') {
+                // Clear and redraw from saved state
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(offscreenCanvas, 0, 0);
 
-            if (tool === 'eraser') {
-                ctx.strokeStyle = "#fdf6f0";
+                ctx.strokeStyle = colorPicker.value + "88"; // translucent hex
                 ctx.lineWidth = brushSize.value;
-                ctx.lineCap = 'round';
-                ctx.lineTo(x, y);
-                ctx.stroke();
+
+                if (tool === 'line') {
+                    ctx.beginPath();
+                    ctx.moveTo(startX, startY);
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                } else if (tool === 'rect') {
+                    ctx.strokeRect(startX, startY, x - startX, y - startY);
+                } else if (tool === 'circle') {
+                    const radius = Math.sqrt((x - startX) ** 2 + (y - startY) ** 2);
+                    ctx.beginPath();
+                    ctx.arc(startX, startY, radius, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
             }
         });
 
         canvas.addEventListener('mouseup', e => {
             const x = e.offsetX;
             const y = e.offsetY;
+
             if (tool === 'line' || tool === 'rect' || tool === 'circle') {
                 ctx.strokeStyle = colorPicker.value;
                 ctx.lineWidth = brushSize.value;
@@ -143,13 +166,9 @@
                     ctx.moveTo(startX, startY);
                     ctx.lineTo(x, y);
                     ctx.stroke();
-                }
-
-                if (tool === 'rect') {
+                } else if (tool === 'rect') {
                     ctx.strokeRect(startX, startY, x - startX, y - startY);
-                }
-
-                if (tool === 'circle') {
+                } else if (tool === 'circle') {
                     const radius = Math.sqrt((x - startX) ** 2 + (y - startY) ** 2);
                     ctx.beginPath();
                     ctx.arc(startX, startY, radius, 0, Math.PI * 2);

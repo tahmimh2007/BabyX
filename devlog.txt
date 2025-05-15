@@ -29,3 +29,8 @@ Ben Rudinski -- 2025-05-14 8:43:
 * Added save/clear whiteboard
 * Added eraser, shapes, line, size tools
 * You can load a PNG as a whiteboard now
+
+Ben Rudinski -- 2025-05-15 10:49:
+* Added color picker
+* Fixed routing
+* Previews
