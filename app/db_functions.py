@@ -19,6 +19,13 @@ def create_tables():
             password TEXT NOT NULL
         );
     ''')
+    cur.execute('''
+        CREATE TABLE IF NOT EXISTS whiteboards (
+            user_id INTEGER,
+            content TEXT,
+            FOREIGN KEY(user_id) REFERENCES users(user_id)
+        );
+    ''')
     conn.commit()
     conn.close()
 
@@ -56,3 +63,27 @@ def login_user():
             flash('Login successful!', 'success')
         else:
             flash('Invalid username or password.', 'error')
+
+def get_user_id(username):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT user_id FROM users WHERE username = ?", (username,))
+    row = cur.fetchone()
+    conn.close()
+    return row['user_id'] if row else None
+
+def save_whiteboard_content(user_id, content):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("DELETE FROM whiteboards WHERE user_id = ?", (user_id,))
+    cur.execute("INSERT INTO whiteboards (user_id, content) VALUES (?, ?)", (user_id, content))
+    conn.commit()
+    conn.close()
+
+def load_whiteboard_content(user_id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT content FROM whiteboards WHERE user_id = ?", (user_id,))
+    row = cur.fetchone()
+    conn.close()
+    return row['content'] if row else ""

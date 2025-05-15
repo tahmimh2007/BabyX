@@ -1,5 +1,5 @@
 from flask import Flask, render_template, flash, request, redirect, url_for, session
-from db_functions import register_user, login_user, create_tables
+from db_functions import register_user, login_user, create_tables, get_user_id, load_whiteboard_content, save_whiteboard_content
 import os
 
 app = Flask(__name__)
@@ -54,9 +54,26 @@ def study_guide():
 @app.route("/whiteboard")
 def whiteboard():
     if "username" in session:
-        return render_template("whiteboard.html")
+        user_id = get_user_id(session["username"])
+        content = load_whiteboard_content(user_id)
+        return render_template("whiteboard.html", content=content)
     return redirect(url_for("login"))
 
+@app.route("/edit", methods=["POST"])
+def edit():
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    content = request.form.get("content", "")
+    user_id = get_user_id(session["username"])
+
+    if user_id is not None:
+        save_whiteboard_content(user_id, content)
+        flash("Whiteboard saved.", "success")
+    else:
+        flash("Failed to save whiteboard.", "error")
+    
+    return redirect(url_for("whiteboard"))
 
 if __name__ == "__main__":
     create_tables()  # Initialize database tables before starting the app
