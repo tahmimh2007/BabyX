@@ -77,6 +77,6 @@ def edit():
 
 if __name__ == "__main__":
     create_tables()  # Initialize database tables before starting the app
-    app.run(host='0.0.0.0')
+    app.run(port=2000, debug=True)
 
 application = app

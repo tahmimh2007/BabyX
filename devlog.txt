@@ -34,3 +34,9 @@ Ben Rudinski -- 2025-05-15 10:49:
 * Added color picker
 * Fixed routing
 * Previews
+
+Yinwei Zhang -- 2025-05-17 19:20:
+* Whiteboard tool option icons
+* Canvas redesign
+* Tool highlight
+* Move styles to CSS

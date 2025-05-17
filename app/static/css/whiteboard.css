@@ -1,0 +1,91 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #ffe8d1;
+    color: #0a4d4d;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    padding: 5px;
+    text-align: center;
+}
+
+h1 {
+    color: #e76f51;
+}
+
+.bx {
+    color: #e6e6e6;
+}
+
+.tool-optn {
+    transition: background-color 0.1s;
+    background: rgba(0, 0, 0, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.tool-optn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#toolbar {
+    backdrop-filter: blur(20px);
+    position: fixed;
+    background-color: rgba(41, 41, 41, 0.76);
+    padding: 15px;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: flex;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    border: 1px solid rgba(96, 96, 96, 0.6);
+}
+
+.btn, input[type="file"] {
+    background-color: #0a4d4d;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #128080;
+}
+
+select, input[type="color"], input[type="range"] {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+#whiteboard {
+    margin: 10px;
+    background-color: #191919;
+    border-radius: 5px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.2);
+    cursor: crosshair;
+}

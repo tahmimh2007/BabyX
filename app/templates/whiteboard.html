@@ -2,74 +2,36 @@
 <html>
 <head>
     <title>Whiteboard Studio</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #ffe8d1;
-            color: #0a4d4d;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1 {
-            color: #e76f51;
-        }
-
-        #toolbar {
-            margin-bottom: 20px;
-            background-color: #fff3e0;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .btn, input[type="file"] {
-            background-color: #0a4d4d;
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #128080;
-        }
-
-        select, input[type="color"], input[type="range"] {
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
-
-        #whiteboard {
-            border: 3px solid #e76f51;
-            background-color: #fdf6f0;
-            border-radius: 10px;
-            box-shadow: 0 0 12px rgba(0,0,0,0.2);
-            cursor: crosshair;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/whiteboard.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 </head>
 <body>
-    <h1>Whiteboard Studio</h1>
 
+<div class="wrapper">
     <div id="toolbar">
-        <select id="tool">
-            <option value="draw">Draw</option>
-            <option value="eraser">Eraser</option>
-            <option value="line">Line</option>
-            <option value="rect">Rectangle</option>
-            <option value="circle">Circle</option>
-            <option value="fill">Fill</option>
-        </select>
+        <div class="tool-optn" onclick="setTool('draw', this)">
+            <i class="bx bx-pencil bx-md"></i>
+        </div>
+
+        <div class="tool-optn" onclick="setTool('eraser', this)">
+            <i class="bx bx-eraser bx-md"></i>
+        </div>
+
+        <div class="tool-optn" onclick="setTool('line', this)">
+            <i class="bx bx-minus bx-md"></i>
+        </div>
+
+        <div class="tool-optn" onclick="setTool('rect', this)">
+            <i class="bx bx-rectangle bx-md"></i>
+        </div>
+
+        <div class="tool-optn" onclick="setTool('circle', this)">
+            <i class="bx bx-circle bx-md"></i>
+        </div>
+
+        <div class="tool-optn" onclick="setTool('fill', this)">
+            <i class="bx bx-color-fill bx-md"></i>
+        </div>
 
         <input type="color" id="color" value="#0a4d4d">
         <input type="range" id="brushSize" min="1" max="30" value="4">
@@ -79,11 +41,20 @@
         <a class="btn" href="{{ url_for('home') }}">Back to Home</a>
     </div>
 
-    <canvas id="whiteboard" width="900" height="600"></canvas>
+        <canvas id="whiteboard" style="width: 100%; height: 100%"></canvas>
+    </div>
 
     <script>
         const canvas = document.getElementById('whiteboard');
         const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
 
         const offscreenCanvas = document.createElement('canvas');
         const offscreenCtx = offscreenCanvas.getContext('2d');
@@ -95,14 +66,19 @@
         let startX = 0, startY = 0;
         let hoverX = 0, hoverY = 0;
 
-        const toolSelect = document.getElementById('tool');
         const colorPicker = document.getElementById('color');
         const brushSize = document.getElementById('brushSize');
 
-        toolSelect.addEventListener('change', () => {
-            tool = toolSelect.value;
+        function setTool(selectedTool, element) {
+            tool = selectedTool;
             canvas.style.cursor = tool === 'eraser' ? 'cell' : 'crosshair';
-        });
+
+            document.querySelectorAll('.tool-optn').forEach(tool => {
+                tool.style.backgroundColor = '';
+            });
+
+            element.style.backgroundColor = 'rgba(255,255,255,0.2)';
+        }
 
         canvas.addEventListener('mousedown', e => {
             startX = e.offsetX;
