@@ -1,9 +1,12 @@
 from flask import Flask, render_template, flash, request, redirect, url_for, session
 from db_functions import register_user, login_user, create_tables, get_user_id, load_whiteboard_content, save_whiteboard_content
+from flask_socketio import SocketIO, emit
 import os
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(32)
+
+socketio = SocketIO(app)
 
 @app.route("/")
 def home():
@@ -75,8 +78,20 @@ def edit():
     
     return redirect(url_for("whiteboard"))
 
+@socketio.on('draw')
+def handle_draw(data):
+    emit('draw', data, broadcast=True)
+
+@socketio.on('clear')
+def handle_clear():
+    emit('clear', broadcast=True)
+
+@socketio.on('sync_canvas')
+def handle_sync_canvas(data):
+    emit('sync_canvas', data, broadcast=True)
+
 if __name__ == "__main__":
-    create_tables()  # Initialize database tables before starting the app
-    app.run(port=2000, debug=True)
+    create_tables()
+    socketio.run(app, port=2000, debug=True)
 
 application = app
