@@ -40,3 +40,13 @@ Yinwei Zhang -- 2025-05-17 19:20:
 * Canvas redesign
 * Tool highlight
 * Move styles to CSS
+
+Yinwei Zhang -- 2025-05-18 00:59:
+* Refactor and redo all UI/UX for whiteboard and home pages
+* Updated styling of whiteboard with dot pattern
+* New home page layout with private/shared boards
+* Added additional tools and syncing fixes to the whiteboard
+* Added pen tool with pressured ink
+* Added text tool that burns text into the screen
+* Added selection tool and move tool
+* Externalized whiteboard JavaScript logic

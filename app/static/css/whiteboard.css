@@ -1,7 +1,6 @@
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #ffe8d1;
-    color: #0a4d4d;
+    background-color: #3b3e40;
     margin: 0;
 }
 
@@ -11,12 +10,20 @@ body {
 
 .wrapper {
     display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    padding: 5px;
+    padding: 10px;
     text-align: center;
+}
+
+p {
+    margin: 0;
+    color: white;
+    padding-left: 3px;
+    text-align: start;
 }
 
 h1 {
@@ -27,7 +34,7 @@ h1 {
     color: #e6e6e6;
 }
 
-.tool-optn {
+.tool-optn, .imageUpload {
     transition: background-color 0.1s;
     background: rgba(0, 0, 0, 0);
     display: flex;
@@ -38,31 +45,51 @@ h1 {
     border-radius: 5px;
 }
 
-.tool-optn:hover {
+.tool-optn:hover, .imageUpload:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-#toolbar {
-    backdrop-filter: blur(20px);
+.toolbar-wrapper {
+    z-index: 999;
     position: fixed;
-    background-color: rgba(41, 41, 41, 0.76);
+    width: 100vw;
+    bottom: 35px;
+    display: flex;
+    justify-content: center;
+}
+
+.toolbar {
+    z-index: 999;
+    width: 1000px;
+    max-width: 90%;
+    backdrop-filter: blur(20px);
+    background-color: rgba(41, 41, 41, 0.75);
     padding: 15px;
-    margin-left: 10vw;
-    margin-right: 10vw;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     display: flex;
-    bottom: 30px;
-    left: 0;
-    right: 0;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
+    justify-content: space-between;
     border: 1px solid rgba(96, 96, 96, 0.6);
 }
 
-.btn, input[type="file"] {
-    background-color: #0a4d4d;
+.toolbar-sect {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.top {
+    gap: 10px;
+    width: auto !important;
+    position: fixed !important;
+    top: 35px !important;
+    bottom: auto !important;
+}
+
+.btn {
+    background-color: rgba(255, 255, 255, 0.1);
     color: white;
     border: none;
     padding: 10px 16px;
@@ -72,19 +99,53 @@ h1 {
     transition: background-color 0.3s;
 }
 
+input[type="file"] {
+    display: none;
+}
+
 .btn:hover {
-    background-color: #128080;
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 select, input[type="color"], input[type="range"] {
-    padding: 8px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(96, 96, 96, 0.6);
+    padding: 0;
+}
+
+.dot-overlay {
+    margin: 10px;
+    overflow: hidden;
+    position: absolute;
+    inset: 0; /* stretch edge‑to‑edge over the canvas        */
+    pointer-events: none; /* ← so the canvas still receives all input    */
+    z-index: 5; /* sits above the canvas, below the toolbars   */
+
+    /* --- dotted pattern --- */
+    background-image: radial-gradient(
+            rgba(255, 255, 255, 0.15) 1px, /* dot color & diameter                     */ transparent 1px);
+    background-size: 24px 24px; /* distance between dots (x | y)           */
+    /* tweak the two values above to taste */
+}
+
+input[type="color"]::-moz-color-swatch {
+    border: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border-radius: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: none;
 }
 
 #whiteboard {
     margin: 10px;
-    background-color: #191919;
+    background-color: #131313;
     border-radius: 5px;
     box-shadow: 0 0 12px rgba(0,0,0,0.2);
     cursor: crosshair;
