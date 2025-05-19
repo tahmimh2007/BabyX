@@ -3,8 +3,7 @@ import os
 from flask import Flask, render_template, flash, request, redirect, url_for, session
 from flask_socketio import SocketIO, emit
 
-from db_functions import register_user, login_user, create_tables, get_user_id, load_whiteboard_content, \
-    save_whiteboard_content
+from db_functions import register_user, login_user, create_tables, get_user_id, load_whiteboard_content, save_whiteboard_content
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(32)
@@ -48,13 +47,13 @@ def logout():
 @app.route("/practice")
 def practice():
     if "username" in session:
-        return render_template("practice.html")
+        return render_template("practice.html", username=session["username"])
     return redirect(url_for("login"))
 
 @app.route("/study_guide")
 def study_guide():
     if "username" in session:
-        return render_template("study_guide.html")
+        return render_template("study_guide.html", username=session["username"])
     return redirect(url_for("login"))
 
 @app.route("/whiteboard")
@@ -78,7 +77,7 @@ def edit():
         flash("Whiteboard saved.", "success")
     else:
         flash("Failed to save whiteboard.", "error")
-    
+
     return redirect(url_for("whiteboard"))
 
 @socketio.on('draw')
