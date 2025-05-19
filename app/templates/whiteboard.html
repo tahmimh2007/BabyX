@@ -9,9 +9,9 @@
 
 <div class="wrapper">
     <div class="toolbar top">
-        <button class="btn" onclick="clearCanvas()">Clear</button>
-        <button class="btn" onclick="saveCanvas()">Save</button>
-        <a class="btn" href="{{ url_for('home') }}" style="text-decoration: none">Home</a>
+        <button class="btn" onclick="clearCanvas()"><i class="bx bx-x-circle bx-sm" style='color:#ff0000'></i></button>
+        <button class="btn" onclick="saveCanvas()"><i class="bx bx-export bx-sm fill"></i></button>
+        <a class="btn" href="{{ url_for('home') }}" style="text-decoration: none"><i class="bx bx-home bx-sm"></i></a>
     </div>
     <div class="toolbar-wrapper">
         <div class="toolbar">
@@ -44,7 +44,7 @@
                     <i class="bx bx-rectangle bx-md"></i>
                 </div>
 
-                <div class="tool-optn" onclick="setTool('circle', this)" data-tooltip="Ellipse">
+                <div class="tool-optn" onclick="setTool('circle', this)" data-tooltip="Circle">
                     <i class="bx bx-circle bx-md"></i>
                 </div>
 
