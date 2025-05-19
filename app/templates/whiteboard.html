@@ -17,8 +17,8 @@
         <div class="toolbar">
             <div class="toolbar-sect">
                 <div class="tool-optn" onclick="setTool('draw', this)" data-tooltip="Pencil">
-            <i class="bx bx-pencil bx-md"></i>
-        </div>
+                    <i class="bx bx-pencil bx-md"></i>
+                </div>
 
                 <div class="tool-optn" onclick="setTool('highlight', this)" data-tooltip="Highlighter">
                     <i class="bx bx-highlight bx-md"></i>
@@ -33,24 +33,24 @@
                 </div>
 
                 <div class="tool-optn" onclick="setTool('eraser', this)" data-tooltip="Eraser">
-            <i class="bx bx-eraser bx-md"></i>
-        </div>
+                    <i class="bx bx-eraser bx-md"></i>
+                </div>
 
                 <div class="tool-optn" onclick="setTool('line', this)" data-tooltip="Line">
-            <i class="bx bx-minus bx-md"></i>
-        </div>
+                    <i class="bx bx-minus bx-md"></i>
+                </div>
 
                 <div class="tool-optn" onclick="setTool('rect', this)" data-tooltip="Rectangle">
-            <i class="bx bx-rectangle bx-md"></i>
-        </div>
+                    <i class="bx bx-rectangle bx-md"></i>
+                </div>
 
                 <div class="tool-optn" onclick="setTool('circle', this)" data-tooltip="Ellipse">
-            <i class="bx bx-circle bx-md"></i>
-        </div>
+                    <i class="bx bx-circle bx-md"></i>
+                </div>
 
                 <div class="tool-optn" onclick="setTool('fill', this)" data-tooltip="Bucket Fill">
-            <i class="bx bx-color-fill bx-md"></i>
-        </div>
+                    <i class="bx bx-color-fill bx-md"></i>
+                </div>
 
                 <div class="tool-optn" onclick="setTool('text', this)" data-tooltip="Burn Text">
                     <i class="bx bx-text bx-md"></i>
@@ -88,9 +88,11 @@
     </div>
     <div class="dot-overlay"></div>
     <canvas id="whiteboard" style="width: 100%; height: 100%"></canvas>
-    </div>
+</div>
 
-    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+<script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
 <script src="{{ url_for('static', filename='js/whiteboard.js') }}"></script>
+<script src="{{ url_for('static', filename='js/tooltips.js') }}"></script>
+
 </body>
 </html>
