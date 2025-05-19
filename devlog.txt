@@ -50,3 +50,12 @@ Yinwei Zhang -- 2025-05-18 00:59:
 * Added text tool that burns text into the screen
 * Added selection tool and move tool
 * Externalized whiteboard JavaScript logic
+
+Yinwei Zhang -- 2025-05-18 22:39:
+* Implement canvas save/load
+* Add user whiteboard storage
+* Writing improvements with interpolation
+* Added highlighter tool
+* Fix pen tool behavior
+* Added eyedropper tool
+* UI fixes

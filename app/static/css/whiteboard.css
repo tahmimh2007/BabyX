@@ -20,6 +20,7 @@ body {
 }
 
 p {
+    font-family: monospace;
     margin: 0;
     color: white;
     padding-left: 3px;
@@ -64,7 +65,7 @@ h1 {
     max-width: 90%;
     backdrop-filter: blur(20px);
     background-color: rgba(41, 41, 41, 0.75);
-    padding: 15px;
+    padding: 5px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     display: flex;
@@ -73,7 +74,7 @@ h1 {
 }
 
 .toolbar-sect {
-    gap: 10px;
+    gap: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -81,7 +82,7 @@ h1 {
 }
 
 .top {
-    gap: 10px;
+    gap: 5px;
     width: auto !important;
     position: fixed !important;
     top: 35px !important;
@@ -111,7 +112,7 @@ select, input[type="color"], input[type="range"] {
     border-radius: 5px;
     width: 50px;
     height: 50px;
-    border: 1px solid rgba(96, 96, 96, 0.6);
+    border: 0;
     padding: 0;
 }
 
@@ -119,15 +120,13 @@ select, input[type="color"], input[type="range"] {
     margin: 10px;
     overflow: hidden;
     position: absolute;
-    inset: 0; /* stretch edge‑to‑edge over the canvas        */
-    pointer-events: none; /* ← so the canvas still receives all input    */
-    z-index: 5; /* sits above the canvas, below the toolbars   */
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
 
-    /* --- dotted pattern --- */
     background-image: radial-gradient(
-            rgba(255, 255, 255, 0.15) 1px, /* dot color & diameter                     */ transparent 1px);
-    background-size: 24px 24px; /* distance between dots (x | y)           */
-    /* tweak the two values above to taste */
+            rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+    background-size: 24px 24px;
 }
 
 input[type="color"]::-moz-color-swatch {

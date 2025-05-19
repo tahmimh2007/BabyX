@@ -1,5 +1,6 @@
-import sqlite3
 import os
+import sqlite3
+
 from flask import request, session, flash
 
 DB_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'database.db')
@@ -28,6 +29,24 @@ def create_tables():
     ''')
     conn.commit()
     conn.close()
+
+
+def create_whiteboards_table():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute('''
+                CREATE TABLE IF NOT EXISTS whiteboards
+                (
+                    user_id INTEGER PRIMARY KEY,
+                    content TEXT NOT NULL,
+                    FOREIGN KEY (user_id) REFERENCES users (user_id)
+                )
+                ''')
+    conn.commit()
+    conn.close()
+
+
+create_whiteboards_table()
 
 def add_user(username, password):
     conn = get_db_connection()

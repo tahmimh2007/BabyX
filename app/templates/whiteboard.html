@@ -21,7 +21,15 @@
         </div>
 
                 <div class="tool-optn" onclick="setTool('highlight', this)">
+                    <i class="bx bx-highlight bx-md"></i>
+                </div>
+
+                <div class="tool-optn" onclick="setTool('pen', this)">
                     <i class="bx bx-pen bx-md"></i>
+                </div>
+
+                <div class="tool-optn" onclick="setTool('eyedropper', this)">
+                    <i class="bx bxs-eyedropper bx-md"></i>
                 </div>
 
         <div class="tool-optn" onclick="setTool('eraser', this)">
@@ -64,11 +72,13 @@
             </div>
 
             <div class="toolbar-sect">
-                <input type="color" id="color" value="#ffffff">
-                <div style="margin-left: 5px;">
-                    <p>Brush Size</p>
-                    <input type="range" id="brushSize" min="1" max="30" value="4" style="width: 150px; height: 20px;">
+                <div style="position: relative; top: 2px; margin-right: 10px">
+                    <p>
+                        Size <span id="brushDisplay">4</span>
+                    </p>
+                    <input type="range" id="brushSize" min="1" max="50" value="4" style="width: 100px; height: 20px;">
                 </div>
+                <input type="color" id="color" value="#ffffff">
             </div>
         </div>
     </div>

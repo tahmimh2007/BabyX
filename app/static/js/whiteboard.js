@@ -1,3 +1,8 @@
+let lastX = null, lastY = null;
+
+const brushSizeSlider = document.getElementById('brushSize');
+const brushDisplay = document.getElementById('brushDisplay');
+
 const canvas = document.getElementById('whiteboard');
 const ctx = canvas.getContext('2d');
 
@@ -7,18 +12,28 @@ const bctx = buffer.getContext('2d');
 
 // resize canvas and fill
 function fit() {
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+    tempCtx.drawImage(canvas, 0, 0);
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
     buffer.width = canvas.width;
     buffer.height = canvas.height;
 
+    // restore save
     ctx.fillStyle = '#131313';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(tempCanvas, 0, 0);
 }
 
 window.addEventListener('resize', fit);
 fit();
 
+brushSizeSlider.addEventListener('input', () => {
+    brushDisplay.textContent = brushSizeSlider.value;
+});
 
 let tool = 'draw';
 let drawing = false;
@@ -51,17 +66,38 @@ function setBlend(t) {
     if (t === 'eraser') {
         ctx.globalCompositeOperation = 'destination-out';
         ctx.globalAlpha = 1;
-    } else if (t === 'highlight') { // pen tool
+        ctx.shadowBlur = 0;
+    } else if (t === 'highlight') {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.globalAlpha = 0.01;
+        ctx.shadowColor = colorPicker.value;
+        ctx.shadowBlur = brushSize.value * 1.5;
+    } else if (t === 'pen') {
         ctx.globalCompositeOperation = 'source-over';
         ctx.globalAlpha = 0.1;
+        ctx.shadowBlur = 0;
     } else {
         ctx.globalCompositeOperation = 'source-over';
         ctx.globalAlpha = 1;
+        ctx.shadowBlur = 0;
     }
 }
 
 function inRect(px, py, r) {
     return r && px >= r.x && px <= r.x + r.w && py >= r.y && py <= r.y + r.h;
+}
+
+function drawSmoothLine(x1, y1, x2, y2) {
+    const distance = Math.hypot(x2 - x1, y2 - y1);
+    const steps = Math.ceil(distance / 2);
+    const dx = (x2 - x1) / steps;
+    const dy = (y2 - y1) / steps;
+
+    for (let i = 1; i <= steps; i++) {
+        const px = x1 + dx * i;
+        const py = y1 + dy * i;
+        ctx.lineTo(px, py);
+    }
 }
 
 // start interaction
@@ -70,6 +106,15 @@ canvas.addEventListener('mousedown', e => {
     const y = e.offsetY;
     sx = x;
     sy = y;
+
+    // EYEDROPPER
+    if (tool === 'eyedropper') {
+        const pixel = ctx.getImageData(x, y, 1, 1).data;
+        colorPicker.value = `#${[pixel[0], pixel[1], pixel[2]]
+            .map(c => c.toString(16).padStart(2, '0')).join('')}`;
+        setTool('draw');
+        return;
+    }
 
     // TEXT TOOL
     if (tool === 'text') {
@@ -101,13 +146,15 @@ canvas.addEventListener('mousedown', e => {
     }
 
     // FREEHAND & SHAPES
-    if (['draw', 'eraser', 'highlight'].includes(tool)) {
+    if (['draw', 'eraser', 'highlight', 'pen'].includes(tool)) {
         drawing = true;
         setBlend(tool);
         ctx.lineCap = 'round';
         ctx.lineWidth = brushSize.value;
         ctx.beginPath();
         ctx.moveTo(x, y);
+        lastX = x;
+        lastY = y;
     } else if (['line', 'rect', 'circle'].includes(tool)) {
         drawing = true;
         bctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -130,10 +177,28 @@ canvas.addEventListener('mousemove', e => {
     if (!drawing) return;
 
     // FREEHAND
-    if (['draw', 'eraser', 'highlight'].includes(tool)) {
-        ctx.lineTo(x, y);
-        ctx.strokeStyle = colorPicker.value;
-        ctx.stroke();
+    if (['draw', 'eraser', 'highlight', 'pen'].includes(tool)) {
+        ctx.strokeStyle = tool === 'eraser' ? '#131313' : colorPicker.value;
+        ctx.lineWidth = brushSize.value;
+        ctx.lineCap = 'round';
+        setBlend(tool);
+
+        drawSmoothLine(lastX, lastY, x, y);
+        ctx.stroke(); // after interpolation
+
+        // sync
+        socket.emit('draw', {
+            tool,
+            color: colorPicker.value,
+            size: brushSize.value,
+            startX: lastX,
+            startY: lastY,
+            endX: x,
+            endY: y
+        });
+
+        lastX = x;
+        lastY = y;
     }
 
     // PREVIEW SHAPES & SELECTION
@@ -215,7 +280,9 @@ canvas.addEventListener('mouseup', e => {
     }
 
     // COMMIT FREEHAND
-    if (drawing && ['draw', 'eraser', 'highlight'].includes(tool)) ctx.closePath();
+    if (drawing && ['draw', 'eraser', 'highlight', 'pen'].includes(tool)) {
+        ctx.closePath();
+    }
 
     drawing = false;
     setBlend('draw');
@@ -306,6 +373,40 @@ socket.on('clear', () => {
     ctx.fillStyle = '#131313';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     selection = null;
+});
+
+socket.on('draw', data => {
+    ctx.lineWidth = data.size;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = data.tool === 'eraser' ? '#131313' : data.color;
+
+    ctx.beginPath();
+    ctx.moveTo(data.startX, data.startY);
+    ctx.lineTo(data.endX, data.endY);
+    ctx.stroke();
+    ctx.closePath();
+});
+
+window.addEventListener('beforeunload', () => {
+    const canvasData = canvas.toDataURL();
+    socket.emit('sync_canvas', {image: canvasData});
+});
+
+setInterval(() => {
+    const canvasData = canvas.toDataURL();
+    socket.emit('save_canvas', {image: canvasData});
+}, 5000);
+
+socket.emit('load_canvas');
+socket.on('load_canvas', data => {
+    if (data.image) {
+        const img = new Image();
+        img.onload = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+        img.src = data.image;
+    }
 });
 
 window.clearCanvas = () => {

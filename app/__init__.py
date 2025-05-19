@@ -1,7 +1,10 @@
-from flask import Flask, render_template, flash, request, redirect, url_for, session
-from db_functions import register_user, login_user, create_tables, get_user_id, load_whiteboard_content, save_whiteboard_content
-from flask_socketio import SocketIO, emit
 import os
+
+from flask import Flask, render_template, flash, request, redirect, url_for, session
+from flask_socketio import SocketIO, emit
+
+from db_functions import register_user, login_user, create_tables, get_user_id, load_whiteboard_content, \
+    save_whiteboard_content
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(32)
@@ -89,6 +92,33 @@ def handle_clear():
 @socketio.on('sync_canvas')
 def handle_sync_canvas(data):
     emit('sync_canvas', data, broadcast=True)
+
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    if 'username' in session:
+        user_id = get_user_id(session['username'])
+        if user_id is not None:
+            content = session.get('whiteboard_content', '')
+            save_whiteboard_content(user_id, content)
+
+
+@socketio.on('save_canvas')
+def handle_save_canvas(data):
+    if 'username' in session:
+        user_id = get_user_id(session['username'])
+        if user_id is not None:
+            save_whiteboard_content(user_id, data['image'])
+
+
+@socketio.on('load_canvas')
+def handle_load_canvas():
+    if 'username' in session:
+        user_id = get_user_id(session['username'])
+        if user_id is not None:
+            content = load_whiteboard_content(user_id)
+            if content:
+                emit('load_canvas', {'image': content})
 
 if __name__ == "__main__":
     create_tables()
