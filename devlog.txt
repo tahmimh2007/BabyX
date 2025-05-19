@@ -59,3 +59,8 @@ Yinwei Zhang -- 2025-05-18 22:39:
 * Fix pen tool behavior
 * Added eyedropper tool
 * UI fixes
+
+Yinwei Zhang -- 2025-05-18 22:56:
+* Added LaTeX input tool
+* UI fixes
+* Added tooltips when hovering on each tool
