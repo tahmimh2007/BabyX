@@ -65,5 +65,7 @@ Yinwei Zhang -- 2025-05-18 22:56:
 * UI fixes
 * Added tooltips when hovering on each tool
 
-Yinwei Zhang -- 2025-05-18 23:15:
+Yinwei Zhang -- 2025-05-18 23:28:
 * Split JS into two files
+* Evolve pen tool drawing behavior into fountain pen
+* Auto highlight pencil tool

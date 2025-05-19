@@ -59,7 +59,9 @@ function setTool(t, el) {
     el && (el.style.backgroundColor = 'rgba(255,255,255,0.25)');
 }
 
-window.setTool = setTool;
+window.addEventListener('DOMContentLoaded', () => {
+    setTool('draw', document.querySelector('.tool-optn[data-tooltip="Pencil"]'));
+});
 
 // blending and alpa matches tool
 function setBlend(t) {
@@ -74,7 +76,7 @@ function setBlend(t) {
         ctx.shadowBlur = brushSize.value * 1.5;
     } else if (t === 'pen') {
         ctx.globalCompositeOperation = 'source-over';
-        ctx.globalAlpha = 0.1;
+        ctx.globalAlpha = 0.125;
         ctx.shadowBlur = 0;
     } else {
         ctx.globalCompositeOperation = 'source-over';
@@ -191,7 +193,7 @@ canvas.addEventListener('mousemove', e => {
     if (!drawing) return;
 
     // FREEHAND
-    if (['draw', 'eraser', 'highlight', 'pen'].includes(tool)) {
+    if (['draw', 'eraser', 'highlight'].includes(tool)) {
         ctx.strokeStyle = tool === 'eraser' ? '#131313' : colorPicker.value;
         ctx.lineWidth = brushSize.value;
         ctx.lineCap = 'round';
@@ -205,6 +207,32 @@ canvas.addEventListener('mousemove', e => {
             tool,
             color: colorPicker.value,
             size: brushSize.value,
+            startX: lastX,
+            startY: lastY,
+            endX: x,
+            endY: y
+        });
+
+        lastX = x;
+        lastY = y;
+    }
+
+    // FOUNTAIN PEN TOOL
+    else if (tool === 'pen') {
+        const speed = Math.hypot(x - lastX, y - lastY);
+        const adjustedSize = Math.max(1, brushSize.value - speed / 10);
+        ctx.lineWidth = adjustedSize;
+        ctx.strokeStyle = colorPicker.value;
+        ctx.lineCap = 'round';
+        setBlend(tool);
+
+        drawSmoothLine(lastX, lastY, x, y);
+        ctx.stroke();
+
+        socket.emit('draw', {
+            tool,
+            color: colorPicker.value,
+            size: adjustedSize,
             startX: lastX,
             startY: lastY,
             endX: x,
