@@ -71,6 +71,10 @@
             transition: background-color 0.3s ease;
         }
 
+        .sel {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
         .navlink:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
@@ -107,7 +111,7 @@
     {% if username %}
         <a href="{{ url_for('practice') }}" class="navlink">Practice Center</a>
         <a href="{{ url_for('study_guide') }}" class="navlink">Study Guide</a>
-        <a href="{{ url_for('whiteboard') }}" class="navlink">Whiteboard</a>
+        <a href="{{ url_for('whiteboard') }}" class="navlink sel">Whiteboard</a>
         <a href="{{ url_for('logout') }}" class="navlink">Logout</a>
     {% else %}
         <a href="{{ url_for('login') }}">Login</a>

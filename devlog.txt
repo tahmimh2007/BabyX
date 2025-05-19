@@ -70,5 +70,7 @@ Yinwei Zhang -- 2025-05-18 23:28:
 * Evolve pen tool drawing behavior into fountain pen
 * Auto highlight pencil tool
 
-Yinwei Zhang -- 2025-05-19 08:53:
+Yinwei Zhang -- 2025-05-19 09:23:
 * Maximize drawing area by redesigning the top bar
+* Unify layout and navigation across multiple pages with new design and improved styling
+* Added stubs for future features

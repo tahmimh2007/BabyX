@@ -12,8 +12,12 @@
         <button class="btn" onclick="clearCanvas()"><i class="bx bx-x-circle bx-sm" style='color:#ff0000'></i></button>
         <button class="btn" onclick="saveCanvas()"><i class="bx bx-export bx-sm fill"></i></button>
         <a class="btn" href="{{ url_for('home') }}" style="text-decoration: none"><i class="bx bx-home bx-sm"></i></a>
+        <p>Online Users & Sync Status</p>
     </div>
     <div class="toolbar-wrapper">
+        <div class="toolbar small-toolbar">
+            <p>Draw<br>Talk<br>Tape</p>
+        </div>
         <div class="toolbar">
             <div class="toolbar-sect">
                 <div class="tool-optn" onclick="setTool('draw', this)" data-tooltip="Pencil">

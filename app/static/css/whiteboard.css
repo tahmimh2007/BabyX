@@ -57,6 +57,11 @@ h1 {
     bottom: 35px;
     display: flex;
     justify-content: center;
+    gap: 10px;
+}
+
+.small-toolbar {
+    max-width: 50px !important;
 }
 
 .toolbar {
