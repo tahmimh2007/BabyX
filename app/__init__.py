@@ -80,6 +80,15 @@ def edit():
 
     return redirect(url_for("whiteboard"))
 
+
+@app.route("/personal_boards", methods= ["POST"])
+def personal_boards():
+	if "username" in session:
+    	user_id = get_user_id(session["username"])
+    	content = load_whiteboard_content(user_id)
+    	return render_template("whiteboard.html", content=content)
+	return redirect(url_for("login"))
+
 @socketio.on('draw')
 def handle_draw(data):
     emit('draw', data, broadcast=True)
