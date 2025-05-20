@@ -74,3 +74,6 @@ Yinwei Zhang -- 2025-05-19 09:23:
 * Maximize drawing area by redesigning the top bar
 * Unify layout and navigation across multiple pages with new design and improved styling
 * Added stubs for future features
+
+Vedant Kothari -- 2025-05-20 10:35:
+* Updated design doc by deleting some external information
