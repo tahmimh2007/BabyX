@@ -46,21 +46,6 @@ def create_whiteboards_table():
     conn.close()
 create_whiteboards_table()
 
-def create_private_whiteboards():
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute('''
-                CREATE TABLE IF NOT EXISTS private_whiteboards
-                (
-                    user_id INTEGER PRIMARY KEY,
-                    whiteboard_id INTEGER AUTOINCREMENT
-                    content TEXT NOT NULL,
-                    FOREIGN KEY (user_id) REFERENCES users(user_id)
-                )
-                ''')
-    conn.commit()
-    conn.close()
-create_private_whiteboards()
 
 def add_user(username, password):
     conn = get_db_connection()
