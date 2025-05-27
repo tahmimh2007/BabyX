@@ -6,7 +6,7 @@ body {
     padding-top: 50px;
 }
 h1 {
-    color: #e76f51;
+    color: rgba(255, 255, 255, 0.8);
 }
 form {
     display: inline-block;
