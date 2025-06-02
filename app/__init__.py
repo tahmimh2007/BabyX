@@ -1,20 +1,19 @@
 import os
-
-from flask import Flask, render_template, flash, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_socketio import SocketIO, emit
 
-from db_functions import register_user, login_user, create_tables, get_user_id, load_whiteboard_content, save_whiteboard_content
+from db_functions import (
+    register_user, login_user, create_tables,
+    get_user_id, load_whiteboard_content, save_whiteboard_content
+)
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(32)
-
 socketio = SocketIO(app)
 
 @app.route("/")
 def home():
-    if "username" in session:
-        return render_template("home.html", username=session["username"])
-    return render_template("home.html")
+    return render_template("home.html", username=session.get("username"))
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -34,13 +33,12 @@ def register():
             return redirect(url_for("login"))
         else:
             flash("Registration failed. Username may already exist.", "error")
-            return redirect(url_for("register"))
     return render_template("register.html")
 
-@app.route("/logout", methods=["GET", "POST"])
+@app.route("/logout")
 def logout():
-    if "username" in session:
-        user = session.pop("username")
+    user = session.pop("username", None)
+    if user:
         flash(f"{user}, you have been logged out.", "success")
     return redirect(url_for("home"))
 
@@ -58,11 +56,11 @@ def study_guide():
 
 @app.route("/whiteboard")
 def whiteboard():
-    if "username" in session:
-        user_id = get_user_id(session["username"])
-        content = load_whiteboard_content(user_id)
-        return render_template("whiteboard.html", content=content)
-    return redirect(url_for("login"))
+    if "username" not in session:
+        return redirect(url_for("login"))
+    user_id = get_user_id(session["username"])
+    content = load_whiteboard_content(user_id)
+    return render_template("whiteboard.html", content=content)
 
 @app.route("/edit", methods=["POST"])
 def edit():
@@ -71,14 +69,16 @@ def edit():
 
     content = request.form.get("content", "")
     user_id = get_user_id(session["username"])
-
-    if user_id is not None:
+    if user_id:
         save_whiteboard_content(user_id, content)
+        session['whiteboard_content'] = content  # optional local store
         flash("Whiteboard saved.", "success")
     else:
         flash("Failed to save whiteboard.", "error")
 
     return redirect(url_for("whiteboard"))
+
+# === SOCKET.IO EVENTS ===
 
 @socketio.on('draw')
 def handle_draw(data):
@@ -92,29 +92,18 @@ def handle_clear():
 def handle_sync_canvas(data):
     emit('sync_canvas', data, broadcast=True)
 
-
-@socketio.on('disconnect')
-def handle_disconnect():
-    if 'username' in session:
-        user_id = get_user_id(session['username'])
-        if user_id is not None:
-            content = session.get('whiteboard_content', '')
-            save_whiteboard_content(user_id, content)
-
-
 @socketio.on('save_canvas')
 def handle_save_canvas(data):
     if 'username' in session:
         user_id = get_user_id(session['username'])
-        if user_id is not None:
+        if user_id:
             save_whiteboard_content(user_id, data['image'])
-
 
 @socketio.on('load_canvas')
 def handle_load_canvas():
     if 'username' in session:
         user_id = get_user_id(session['username'])
-        if user_id is not None:
+        if user_id:
             content = load_whiteboard_content(user_id)
             if content:
                 emit('load_canvas', {'image': content})
@@ -124,3 +113,4 @@ if __name__ == "__main__":
     socketio.run(app, port=2000, debug=True)
 
 application = app
+
