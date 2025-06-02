@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Whiteboard Studio</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/whiteboard.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel ="icon" type = "image" href = "https://creatorset.com/cdn/shop/products/Ishowspeed_image_530x@2x.jpg?v=1672258877">
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="toolbar top">
+        <button class="btn" onclick="clearCanvas()"><i class="bx bx-x-circle bx-sm" style='color:#ff0000'></i></button>
+        <button class="btn" onclick="saveCanvas()"><i class="bx bx-export bx-sm fill"></i></button>
+        <a class="btn" href="{{ url_for('home') }}" style="text-decoration: none"><i class="bx bx-home bx-sm"></i></a>
+        <p>Online Users & Sync Status</p>
+    </div>
+    <div class="toolbar-wrapper">
+        <div class="toolbar small-toolbar">
+            <p>Draw<br>Talk<br>Tape</p>
+        </div>
+        <div class="toolbar">
+            <div class="toolbar-sect">
+                <div class="tool-optn" onclick="setTool('draw', this)" data-tooltip="Pencil">
+                    <i class="bx bx-pencil bx-md"></i>
+                </div>
+
+                <div class="tool-optn" onclick="setTool('pen', this)" data-tooltip="Fountain Pen">
+                    <i class="bx bx-pen bx-md"></i>
+                </div>
+
+                <div class="tool-optn" onclick="setTool('highlight', this)" data-tooltip="Highlighter">
+                    <i class="bx bx-highlight bx-md"></i>
+                </div>
+
+                <div class="tool-optn" onclick="setTool('eyedropper', this)" data-tooltip="Eyedropper">
+                    <i class="bx bxs-eyedropper bx-md"></i>
+                </div>
+
+                <div class="tool-optn" onclick="setTool('eraser', this)" data-tooltip="Eraser">
+                    <i class="bx bx-eraser bx-md"></i>
+                </div>
+
+                <div class="tool-optn" onclick="setTool('line', this)" data-tooltip="Line">
+                    <i class="bx bx-minus bx-md"></i>
+                </div>
+
+                <div class="tool-optn" onclick="setTool('rect', this)" data-tooltip="Rectangle">
+                    <i class="bx bx-rectangle bx-md"></i>
+                </div>
+
+                <div class="tool-optn" onclick="setTool('circle', this)" data-tooltip="Circle">
+                    <i class="bx bx-circle bx-md"></i>
+                </div>
+
+                <div class="tool-optn" onclick="setTool('fill', this)" data-tooltip="Bucket Fill">
+                    <i class="bx bx-color-fill bx-md"></i>
+                </div>
+
+                <div class="tool-optn" onclick="setTool('text', this)" data-tooltip="Burn Text">
+                    <i class="bx bx-text bx-md"></i>
+                </div>
+
+                <div class="tool-optn" onclick="setTool('math', this)" data-tooltip="Burn LaTeX Expression">
+                    <i class="bx bx-math bx-md"></i>
+                </div>
+
+                <div class="tool-optn" onclick="setTool('select', this)" data-tooltip="Select">
+                    <i class="bx bx-selection bx-md"></i>
+                </div>
+
+                <div class="tool-optn" onclick="setTool('move', this)" data-tooltip="Move">
+                    <i class="bx bx-move bx-md"></i>
+                </div>
+
+                <label for="imageLoader" class="imageUpload tool-optn" data-tooltip="Import Image">
+                    <i class="bx bx-image-add bx-md"></i>
+                </label>
+                <input id="imageLoader" type="file" accept="image/*"/>
+
+            </div>
+
+            <div class="toolbar-sect">
+                <div style="position: relative; top: 2px; margin-right: 10px">
+                    <p>
+                        Size <span id="brushDisplay">4</span>
+                    </p>
+                    <input type="range" id="brushSize" min="1" max="50" value="4" style="width: 100px; height: 20px;">
+                </div>
+                <input type="color" id="color" value="#ffffff">
+            </div>
+        </div>
+    </div>
+    <div class="dot-overlay"></div>
+    <canvas id="whiteboard" style="width: 100%; height: 100%"></canvas>
+</div>
+
+<script src="{{ url_for('static', filename='js/whiteboard.js') }}"></script>
+<script src="{{ url_for('static', filename='js/tooltips.js') }}"></script>
+
+</body>
+</html>
