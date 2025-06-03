@@ -80,3 +80,6 @@ Vedant Kothari -- 2025-05-20 10:35:
 
 Tahmim Hassan -- 2025-05-23 10:35
 *added python style indentation of args in db_functions line 50
+
+Vedant Kothari -- 2025-05-27 10:58:
+* Updated color of register button to make color scheme consistent
