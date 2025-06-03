@@ -83,3 +83,12 @@ Tahmim Hassan -- 2025-05-23 10:35
 
 Vedant Kothari -- 2025-05-27 10:58:
 * Updated color of register button to make color scheme consistent
+
+Benjamin Rudinski & Tahmim Hassan -- 2025-06-2 10:56
+*added database table for private whiteboards past
+*added template for private whiteboard- working on functionality
+
+Tahmim Hassan -- 2025-06-3 14:05
+*edited database functionality for private whiteboards
+*added backend functionality for private whiteboards
+*made javascript for private whitboards and all functions

@@ -82,7 +82,6 @@ def save_whiteboard_content(user_id, content):
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute("REPLACE INTO whiteboards (user_id, content) VALUES (?, ?)", (user_id, content))
-    cur.execute("INSERT INTO private_whiteboards (user_id, content) VALUES (?, ?)", (user_id, content))
     conn.commit()
     conn.close()
 
@@ -94,3 +93,35 @@ def load_whiteboard_content(user_id):
     conn.close()
     return row['content'] if row else ""
 
+#for private whitebaords
+def create_private_whiteboard_entry(user_id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("INSERT INTO private_whiteboards (user_id, content) VALUES (?, ?)", (user_id, ""))
+    board_id = cur.lastrowid
+    conn.commit()
+    conn.close()
+    return board_id
+    
+def load_private_whiteboard(user_id, board_id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT content FROM private_whiteboards WHERE id = ? AND user_id = ?", (board_id, user_id))
+    row = cur.fetchone()
+    conn.close()
+    return row['content'] if row else None
+
+def save_private_whiteboard(user_id, board_id, content):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("UPDATE private_whiteboards SET content = ? WHERE id = ? AND user_id = ?", (content, board_id, user_id))
+    conn.commit()
+    conn.close()
+
+def get_private_whiteboards(user_id):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT id, timestamp FROM private_whiteboards WHERE user_id = ? ORDER BY timestamp DESC", (user_id,))
+    rows = cur.fetchall()
+    conn.close()
+    return rows

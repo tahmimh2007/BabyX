@@ -123,18 +123,22 @@
     </div>
 
     <div class="home-details">
-        <h1>Private Boards</h1>
-        <h2>Boards only accessible to you. Coming soon.</h2>
-        <div class="boards-list">
+      <h1>Private Boards</h1>
+        <h2>Boards only accessible to you</h2>
+          <div class="boards-list">
             <div class="create">
                 <i class="bx bx-plus-circle bx-md"></i>
-                <a href="{{url_for('whiteboard')}}">Create a board</a>
+                <a href="{{ url_for('create_private_whiteboard') }}">Create new board</a>
             </div>
-            <div class="create">
-                <i class="bx bx-import bx-md"></i>
-                Import a board
-            </div>
-        </div>
+
+          {% for board in private_boards %}
+          <div class="create">
+              <i class="bx bx-edit bx-md"></i>
+              <a href="{{ url_for('private_whiteboard', board_id=board['id']) }}">Board {{ board['id'] }}</a>
+              <small>{{ board['timestamp'] }}</small>
+          </div>
+          {% endfor %}
+      </div>
         <h1>Shared Boards</h1>
         <h2>Live boards accessible to everyone</h2>
         <div class="boards-list">

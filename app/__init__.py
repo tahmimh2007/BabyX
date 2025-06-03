@@ -4,7 +4,9 @@ from flask_socketio import SocketIO, emit
 
 from db_functions import (
     register_user, login_user, create_tables,
-    get_user_id, load_whiteboard_content, save_whiteboard_content
+    get_user_id, load_whiteboard_content, save_whiteboard_content,
+    create_private_whiteboard_entry, load_private_whiteboard, save_private_whiteboard,
+    get_private_whiteboards
 )
 
 app = Flask(__name__)
@@ -13,7 +15,12 @@ socketio = SocketIO(app)
 
 @app.route("/")
 def home():
-    return render_template("home.html", username=session.get("username"))
+    if "username" not in session:
+        return redirect(url_for("login"))
+    username = session["username"]
+    user_id =get_user_id(username)
+    private_boards = get_private_whiteboards(user_id)
+    return render_template("home.html", username = username, private_boards = private_boards)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -96,6 +103,32 @@ def edit():
 
     return redirect(url_for("whiteboard"))
 
+@app.route("/create_private_whiteboard")
+def create_private_whiteboard():
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    user_id = get_user_id(session["username"])
+    board_id = create_private_whiteboard_entry(user_id)
+    return redirect(url_for("private_whiteboard", board_id=board_id))
+
+
+@app.route("/private_whiteboard/<int:board_id>", methods=["GET", "POST"])
+def private_whiteboard(board_id):
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    user_id = get_user_id(session["username"])
+
+    if request.method == "POST":
+        content = request.form.get("content", "")
+        save_private_whiteboard(user_id, board_id, content)
+        flash("Private whiteboard saved successfully.", "success")
+        return redirect(url_for("private_whiteboard", board_id=board_id))
+
+    content = load_private_whiteboard(user_id, board_id)
+    return render_template("priv_whiteboard.html", content=content, board_id=board_id)
+
 # === SOCKET.IO EVENTS ===
 
 @socketio.on('draw')
@@ -131,4 +164,3 @@ if __name__ == "__main__":
     socketio.run(app, port=2000, debug=True)
 
 application = app
-
