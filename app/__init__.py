@@ -56,6 +56,24 @@ def study_guide():
         return render_template("study_guide.html", username=session["username"])
     return redirect(url_for("login"))
 
+@app.route("/cs")
+def cs():
+    if "username" in session:
+        return render_template("cs.html", username=session["username"])
+    return redirect(url_for("login"))
+
+@app.route("/calc")
+def calc():
+    if "username" in session:
+        return render_template("calc.html", username=session["username"])
+    return redirect(url_for("login"))
+
+@app.route("/stats")
+def stats():
+    if "username" in session:
+        return render_template("calc.html", username=session["username"])
+    return redirect(url_for("login"))
+
 @app.route("/whiteboard")
 def whiteboard():
     if "username" in session:

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/study_guide.css') }}">
+  <meta charset="UTF-8">
+  <title>AP Calculus BC Study Guide</title>
+</head>
+<body>
+
+  <h1>📚 AP Calculus BC Study Guide</h1>
+
+  <div class="section">
+    <h2>📦 Unit 1: Limits and Continuity</h2>
+    <ul>
+      <li><strong>Limit Definition:</strong> \(\lim_{x \to c} f(x) = L\) means f(x) approaches L as x approaches c.</li>
+      <li><strong>One-sided Limits:</strong> Left: \(\lim_{x \to c^-}\), Right: \(\lim_{x \to c^+}\)</li>
+      <li><strong>Continuity:</strong> f is continuous at c if: f(c) exists, limit exists, and they are equal.</li>
+      <li><strong>Intermediate Value Theorem (IVT):</strong> If f is continuous on [a, b], and N is between f(a) and f(b), then ∃ c in (a, b) s.t. f(c) = N.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📦 Unit 2: Differentiation: Definition and Fundamental Properties</h2>
+    <pre>
+f'(x) = lim(h→0) [f(x + h) - f(x)] / h
+    </pre>
+    <ul>
+      <li><strong>Power Rule:</strong> d/dx[xⁿ] = nxⁿ⁻¹</li>
+      <li><strong>Product Rule:</strong> (uv)' = u'v + uv'</li>
+      <li><strong>Quotient Rule:</strong> (u/v)' = (v u' - u v') / v²</li>
+      <li><strong>Chain Rule:</strong> dy/dx = dy/du × du/dx</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📦 Unit 3: Composite, Implicit, and Inverse Functions</h2>
+    <ul>
+      <li><strong>Implicit Differentiation:</strong> Differentiate y using Chain Rule, then solve for dy/dx.</li>
+      <li><strong>Inverse Derivative:</strong> \(\frac{d}{dx}[f^{-1}(x)] = \frac{1}{f'(f^{-1}(x))}\)</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📦 Unit 4: Applications of Derivatives</h2>
+    <ul>
+      <li><strong>Related Rates:</strong> Differentiate both sides wrt t.</li>
+      <li><strong>Motion:</strong> s(t): position, v(t) = s'(t), a(t) = v'(t)</li>
+      <li><strong>Optimization:</strong> Critical points via f'(x)=0, test for max/min.</li>
+      <li><strong>Linear Approximation:</strong> f(x) ≈ f(a) + f'(a)(x − a)</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📦 Unit 5: Analytical Applications of Derivatives</h2>
+    <ul>
+      <li><strong>1st Derivative Test:</strong> Sign change → max/min</li>
+      <li><strong>2nd Derivative Test:</strong> f''(c) > 0 → min; f''(c) < 0 → max</li>
+      <li><strong>Mean Value Theorem:</strong> f'(c) = (f(b) − f(a)) / (b − a)</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📦 Unit 6: Integration and Accumulation of Change</h2>
+    <ul>
+      <li><strong>FTC Part 1:</strong> d/dx[∫ₐˣ f(t)dt] = f(x)</li>
+      <li><strong>FTC Part 2:</strong> ∫ₐᵇ f(x)dx = F(b) − F(a)</li>
+      <li><strong>Average Value:</strong> (1 / (b − a)) ∫ₐᵇ f(x)dx</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📦 Unit 7: Differential Equations</h2>
+    <ul>
+      <li><strong>Separable:</strong> dy/dx = g(x)h(y) → integrate both sides</li>
+      <li><strong>Logistic:</strong> dP/dt = rP(1 − P/K)</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📦 Unit 8: Applications of Integration</h2>
+    <ul>
+      <li><strong>Area Between Curves:</strong> ∫ₐᵇ [f(x) − g(x)] dx</li>
+      <li><strong>Volumes:</strong> Disk: π∫ₐᵇ [R(x)]² dx</li>
+      <li><strong>Shell:</strong> 2π∫ₐᵇ (radius)(height) dx</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📦 Unit 9: Parametric, Polar, Vector</h2>
+    <ul>
+      <li><strong>Parametric dy/dx:</strong> dy/dx = (dy/dt) / (dx/dt)</li>
+      <li><strong>Polar Area:</strong> (1/2) ∫ₐᵇ r² dθ</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>📦 Unit 10: Infinite Sequences and Series</h2>
+    <ul>
+      <li><strong>Tests:</strong> nth-Term, Geometric, p-Series, Ratio</li>
+      <li><strong>Taylor Series:</strong> f(x) = Σ f⁽ⁿ⁾(a)/n! × (x−a)ⁿ</li>
+      <li><strong>Common:</strong> eˣ, sin x, cos x, ln(1+x)</li>
+    </ul>
+  </div>
+
+</body>
+</html>

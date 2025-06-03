@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/study_guide.css') }}">
+  <meta charset="UTF-8">
+  <title>AP Computer Science A — Study Guide</title>
+</head>
+<body>
+
+  <h1>📚 AP Computer Science A Study Guide</h1>
+
+  <div class="unit">
+    <h2>📌 Unit 1: Primitive Types</h2>
+    <ul>
+      <li><strong>Data Types:</strong> <code>int</code>, <code>double</code>, <code>boolean</code></li>
+      <li><strong>Variables & Constants:</strong> <code>final double PI = 3.14;</code></li>
+      <li><strong>Arithmetic Operators:</strong> <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code></li>
+      <li><strong>Casting:</strong> <code>(int)</code>, <code>(double)</code></li>
+      <li><strong>Integer division truncates decimals:</strong> <code>5 / 2</code> is <code>2</code></li>
+    </ul>
+  </div>
+
+  <div class="unit">
+    <h2>📌 Unit 2: Using Objects</h2>
+    <ul>
+      <li>Creating Objects: <code>Scanner input = new Scanner(System.in);</code></li>
+      <li>String Methods: <code>.length()</code>, <code>.substring(a, b)</code>, <code>.indexOf()</code>, <code>.equals()</code></li>
+      <li>Math Methods: <code>Math.pow()</code>, <code>Math.sqrt()</code>, <code>Math.random()</code></li>
+    </ul>
+  </div>
+
+  <div class="unit">
+    <h2>📌 Unit 3: Boolean Expressions and if Statements</h2>
+    <ul>
+      <li>Relational Operators: <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code></li>
+      <li>Logical Operators: <code>&&</code>, <code>||</code>, <code>!</code></li>
+      <li>if-else Example:</li>
+      <pre>
+if (x > 0) {
+    // do something
+} else {
+    // another action
+}
+      </pre>
+    </ul>
+  </div>
+
+  <div class="unit">
+    <h2>📌 Unit 4: Iteration</h2>
+    <ul>
+      <li>for Loop Example:</li>
+      <pre>
+for (int i = 0; i &lt; 5; i++) {
+    System.out.println(i);
+}
+      </pre>
+      <li>while Loop Example:</li>
+      <pre>
+int i = 0;
+while (i &lt; 5) {
+    i++;
+}
+      </pre>
+    </ul>
+  </div>
+
+  <div class="unit">
+    <h2>📌 Unit 5: Writing Classes</h2>
+    <pre>
+public class Dog {
+    private String name;
+
+    public Dog(String n) {
+        name = n;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+    </pre>
+    <ul>
+      <li>Instance Variables (usually <code>private</code>)</li>
+      <li>Constructors initialize variables</li>
+      <li>Accessor &amp; Mutator Methods</li>
+    </ul>
+  </div>
+
+  <div class="unit">
+    <h2>📌 Unit 6: Arrays</h2>
+    <ul>
+      <li>Declare: <code>int[] nums = new int[5];</code></li>
+      <li>Access: <code>nums[0]</code></li>
+      <li>Loop Through:</li>
+      <pre>
+for (int i = 0; i &lt; nums.length; i++) {
+    System.out.println(nums[i]);
+}
+      </pre>
+    </ul>
+  </div>
+
+  <div class="unit">
+    <h2>📌 Unit 7: ArrayList</h2>
+    <ul>
+      <li>Declare: <code>ArrayList&lt;Integer&gt; nums = new ArrayList&lt;&gt;();</code></li>
+      <li>Key Methods: <code>.add()</code>, <code>.get()</code>, <code>.set()</code>, <code>.remove()</code>, <code>.size()</code></li>
+    </ul>
+  </div>
+
+  <div class="unit">
+    <h2>📌 Unit 8: 2D Arrays</h2>
+    <pre>
+int[][] grid = new int[3][4];
+grid[0][1] = 5;
+    </pre>
+    <ul>
+      <li>Nested Loops for iteration</li>
+      <pre>
+for (int i = 0; i &lt; grid.length; i++) {
+    for (int j = 0; j &lt; grid[0].length; j++) {
+        System.out.println(grid[i][j]);
+    }
+}
+      </pre>
+    </ul>
+  </div>
+
+  <div class="unit">
+    <h2>📌 Unit 9: Inheritance</h2>
+    <pre>
+public class Dog extends Animal {
+    public Dog(String name) {
+        super(name);
+    }
+
+    @Override
+    public void speak() {
+        System.out.println("Bark");
+    }
+}
+    </pre>
+  </div>
+
+  <div class="unit">
+    <h2>📌 Unit 10: Recursion</h2>
+    <pre>
+public int factorial(int n) {
+    if (n == 0) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+    </pre>
+    <ul>
+      <li>Base Case stops recursion</li>
+      <li>Recursive call continues reducing problem size</li>
+    </ul>
+  </div>
+
+  <div class="unit">
+    <h2>📖 Exam Tips</h2>
+    <ul>
+      <li>Trace small code snippets manually</li>
+      <li>Use <code>.equals()</code> to compare Strings, not <code>==</code></li>
+      <li>Watch for integer division issues</li>
+      <li>Practice ArrayList and recursion problems</li>
+    </ul>
+  </div>
+
+</body>
+</html>

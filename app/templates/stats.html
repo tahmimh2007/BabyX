@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ultra-Detailed AP Statistics Study Guide</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/study_guide.css') }}">
+</head>
+<body>
+
+  <h1>📚 AP Statistics Study Guide (Units 6–9)</h1>
+
+  <h2>📖 Unit 6: Confidence Intervals (CIs)</h2>
+  <h3>🔹 What is a Confidence Interval?</h3>
+  <p>A confidence interval is a range of plausible values for a population parameter, based on a sample statistic.</p>
+
+  <div class="formula">Point Estimate ± (Critical Value) × (Standard Error)</div>
+
+  <h3>🔹 Confidence Level</h3>
+  <p>95% CI: If we repeated this method many times, about 95% of the intervals would capture the true parameter.</p>
+
+  <h3>🔹 Conditions for Inference</h3>
+  <ul>
+    <li><strong>Random:</strong> Data from random sample or random assignment</li>
+    <li><strong>Normal:</strong> For proportions: np ≥ 10 and n(1-p) ≥ 10; for means: population normal or n ≥ 30</li>
+    <li><strong>Independence:</strong> 10% condition if sampling without replacement</li>
+  </ul>
+
+  <h3>🔹 Formulas</h3>
+  <p><strong>One-Proportion z-Interval</strong></p>
+  <div class="formula">p̂ ± z* √( p̂(1 - p̂) / n )</div>
+
+  <p><strong>One-Sample t-Interval</strong></p>
+  <div class="formula">x̄ ± t* (s / √n)</div>
+
+  <p><strong>Two-Sample Proportions</strong></p>
+  <div class="formula">(p̂₁ - p̂₂) ± z* √( p̂₁(1 - p̂₁)/n₁ + p̂₂(1 - p̂₂)/n₂ )</div>
+
+  <p><strong>Two-Sample Means (unpaired)</strong></p>
+  <div class="formula">(x̄₁ - x̄₂) ± t* √( s₁²/n₁ + s₂²/n₂ )</div>
+
+  <h2>📖 Unit 7: Significance Tests</h2>
+  <h3>🔹 Steps in a Hypothesis Test</h3>
+  <ol>
+    <li>State Hypotheses: H₀ and Hₐ</li>
+    <li>Check Conditions</li>
+    <li>Calculate Test Statistic</li>
+    <li>Find p-value</li>
+    <li>Make a Decision</li>
+  </ol>
+
+  <h3>🔹 Test Statistics</h3>
+  <p><strong>One-Proportion z-Test</strong></p>
+  <div class="formula">z = (p̂ - p₀) / √( p₀(1 - p₀) / n )</div>
+
+  <p><strong>One-Sample t-Test</strong></p>
+  <div class="formula">t = (x̄ - μ₀) / (s / √n)</div>
+
+  <p><strong>Two-Proportion z-Test</strong></p>
+  <div class="formula">z = (p̂₁ - p̂₂) / √(p_c(1 - p_c)(1/n₁ + 1/n₂))</div>
+  <p>where p_c = combined proportion</p>
+
+  <p><strong>Two-Sample t-Test</strong></p>
+  <div class="formula">t = (x̄₁ - x̄₂) / √(s₁²/n₁ + s₂²/n₂)</div>
+
+  <h3>🔹 Errors</h3>
+  <ul>
+    <li><strong>Type I:</strong> Rejecting true H₀</li>
+    <li><strong>Type II:</strong> Failing to reject false H₀</li>
+    <li><strong>Power:</strong> Probability of rejecting a false null</li>
+  </ul>
+
+  <h2>📖 Unit 8: Inference for Categorical Data (Chi-Square Tests)</h2>
+  <h3>🔹 Types of Chi-Square Tests</h3>
+  <ul>
+    <li><strong>Goodness-of-Fit:</strong> One variable, one population</li>
+    <li><strong>Homogeneity:</strong> One variable, multiple populations</li>
+    <li><strong>Independence:</strong> Two variables, one population</li>
+  </ul>
+
+  <h3>🔹 Test Statistic</h3>
+  <div class="formula">χ² = Σ (O - E)² / E</div>
+
+  <p>df =</p>
+  <ul>
+    <li>GOF: k - 1</li>
+    <li>Homogeneity or Independence: (r - 1)(c - 1)</li>
+  </ul>
+
+  <h2>📖 Unit 9: Inference for Quantitative Data (Regression)</h2>
+  <h3>🔹 Slope Inference</h3>
+  <p>Testing for linear association between x and y</p>
+
+  <div class="formula">t = (b - 0) / SE_b</div>
+
+  <p>df = n - 2</p>
+
+  <h3>🔹 Conditions</h3>
+  <ul>
+    <li>Linear relationship (scatterplot)</li>
+    <li>Independent observations</li>
+    <li>Normality of residuals</li>
+    <li>Equal spread in residuals (homoscedasticity)</li>
+  </ul>
+
+  <h3>🔹 Confidence Interval for Slope</h3>
+  <div class="formula">b ± t* × SE_b</div>
+
+  <h2>✅ Final Exam Pro Tips</h2>
+  <ul>
+    <li>Always state parameters in context</li>
+    <li>Check and state all conditions</li>
+    <li>Use complete sentences when interpreting results</li>
+    <li>Know when to use z vs. t vs. χ²</li>
+    <li>Label calculator outputs!</li>
+  </ul>
+
+</body>
+</html>
