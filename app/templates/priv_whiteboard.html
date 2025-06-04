@@ -9,7 +9,7 @@
 
 <div class="wrapper">
     <div class="toolbar top">
-        <form id="saveForm" method="POST" action="{{ url_for('private_whiteboard', board_id=board_id) }}">
+        <form id="saveForm" method="POST" action="{{ url_for('private_whiteboard', board_id=board_id) }}" style="display: flex;align-items: center">
             <input type="hidden" name="content" id="saveContent">
             <button type="button" class="btn" onclick="clearCanvas()"><i class="bx bx-x-circle bx-sm" style='color:#ff0000'></i></button>
             <button type="submit" class="btn"><i class="bx bx-export bx-sm"></i></button>
