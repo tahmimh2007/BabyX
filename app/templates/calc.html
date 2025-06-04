@@ -1,14 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/study_guide.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <link rel ="icon" type = "image" href = "https://creatorset.com/cdn/shop/products/Ishowspeed_image_530x@2x.jpg?v=1672258877">
   <meta charset="UTF-8">
   <title>AP Calculus BC Study Guide</title>
+  <style>
+  * {
+      box-sizing: border-box;
+  }
+
+  .home-wrapper {
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+      height: 100vh;
+  }
+
+  .home-details {
+      width: 700px;
+      margin-left: 30px;
+      margin-top: 20px;
+  }
+
+  img {
+      width: 100%;
+      height: auto;
+      padding: 30px;
+  }
+
+  .home-nav {
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      width: 300px;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+  }
+
+  body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #090909;
+      color: #0a4d4d;
+      text-align: center;
+  }
+  h1 {
+      padding: 0px 25px;
+      color: rgba(255, 255, 255, 0.59);
+      text-align: start;
+      margin-top: 40px;
+      font-size: 24px;
+  }
+
+  h2 {
+      padding: 0px 25px;
+      color: rgba(181, 181, 181, 0.59);
+      text-align: start;
+      margin-top: -5px;
+      font-size: 18px;
+      font-weight: normal;
+  }
+
+  .navlink {
+      text-align: start;
+      color: rgba(255, 255, 255, 0.59);
+      width: 100%;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 6px;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+  }
+
+  .sel {
+      background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .navlink:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .create {
+      background-color: transparent;
+      border: 1px dashed rgba(78, 78, 78, 0.59);
+      border-radius: 6px;
+      height: 150px;
+      color: rgba(255, 255, 255, 0.59);
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      width: 250px;
+  }
+
+  .boards-list {
+      margin: 25px 25px 50px;
+      display: flex;
+      width: 100%;
+      gap: 20px;
+  }
+  code {
+    background-color: #f4f4f4;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: Consolas, monospace;
+  }
+  .formula {
+    font-family: 'Cambria Math', 'Latin Modern Math', serif;
+    background-color: #f9f9f9;
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    border-left: 4px solid #2980b9;
+  }
+  .guide {
+
+  }
+
+  </style>
 </head>
 <body>
-
+  <div class="home-nav">
+      <div>
+          <h1>{{ username }}</h1>
+  {% if username %}
+      <a href="{{ url_for('practice') }}" class="navlink">Practice Center</a>
+      <a href="{{ url_for('study_guide') }}" class="navlink">Study Guide</a>
+      <a href="{{ url_for('home') }}" class="navlink sel">Whiteboard</a>
+      <a href="{{ url_for('logout') }}" class="navlink">Logout</a>
+  {% else %}
+      <a href="{{ url_for('login') }}">Login</a>
+      <a href="{{ url_for('register') }}">Register</a>
+  {% endif %}
+      </div>
+      <img src="{{ url_for('static', filename='babyxhub.svg') }}" alt="logo" width="100" height="100">
+  </div>
   <h1>📚 AP Calculus BC Study Guide</h1>
-
   <div class="section">
     <h2>📦 Unit 1: Limits and Continuity</h2>
     <ul>
