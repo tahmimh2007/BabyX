@@ -88,7 +88,14 @@ Benjamin Rudinski & Tahmim Hassan -- 2025-06-2 10:56
 *added database table for private whiteboards past
 *added template for private whiteboard- working on functionality
 
+Vedant Kothari -- 2025-06-04 10:56:
+* Added study guides for Calc, Stats, and CS as well as styling for them
+
 Tahmim Hassan -- 2025-06-3 14:05
 *edited database functionality for private whiteboards
 *added backend functionality for private whiteboards
 *made javascript for private whitboards and all functions
+
+Vedant Kothari -- 2025-06-04 10:51:
+* Added navbar on study guide pages
+* Worked on styling for study guides
