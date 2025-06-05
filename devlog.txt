@@ -99,3 +99,6 @@ Tahmim Hassan -- 2025-06-3 14:05
 Vedant Kothari -- 2025-06-04 10:51:
 * Added navbar on study guide pages
 * Worked on styling for study guides
+
+Vedant Kothari -- 2025-06-05 17:52:
+* Added practice questions for all three subjects without styling
