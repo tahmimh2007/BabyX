@@ -10,23 +10,19 @@
       box-sizing: border-box;
   }
 
+  body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #090909;
+      color: #0a4d4d;
+      height: 100vh;
+      overflow: hidden;
+  }
+
   .home-wrapper {
       display: flex;
       flex-direction: row;
-      justify-content: start;
       height: 100vh;
-  }
-
-  .home-details {
-      width: 700px;
-      margin-left: 30px;
-      margin-top: 20px;
-  }
-
-  img {
-      width: 100%;
-      height: auto;
-      padding: 30px;
   }
 
   .home-nav {
@@ -36,15 +32,16 @@
       display: flex;
       justify-content: space-between;
       flex-direction: column;
+      flex-shrink: 0;
   }
 
-  body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #090909;
-      color: #0a4d4d;
-      text-align: center;
+  .guide {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+      height: 100vh;
   }
+
   h1 {
       padding: 0px 25px;
       color: rgba(255, 255, 255, 0.59);
@@ -60,6 +57,45 @@
       margin-top: -5px;
       font-size: 18px;
       font-weight: normal;
+  }
+
+  .guide h1 {
+      color: rgba(255, 255, 255, 0.9);
+      text-align: center;
+      padding: 0;
+      margin-top: 0;
+      font-size: 28px;
+  }
+
+  .guide h2 {
+      color: rgba(255, 255, 255, 0.8);
+      text-align: left;
+      padding: 0;
+      margin-top: 30px;
+      font-size: 22px;
+      font-weight: 600;
+  }
+
+  .guide h3 {
+      color: rgba(255, 255, 255, 0.7);
+      text-align: left;
+      margin-top: 20px;
+      font-size: 18px;
+  }
+
+  .guide p {
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.6;
+      margin: 10px 0;
+  }
+
+  .guide ul, .guide ol {
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.6;
+  }
+
+  .guide li {
+      margin: 8px 0;
   }
 
   .navlink {
@@ -81,169 +117,161 @@
       background-color: rgba(255, 255, 255, 0.1);
   }
 
-  .create {
-      background-color: transparent;
-      border: 1px dashed rgba(78, 78, 78, 0.59);
-      border-radius: 6px;
-      height: 150px;
-      color: rgba(255, 255, 255, 0.59);
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 10px;
-      width: 250px;
+  img {
+      width: 100%;
+      height: auto;
+      padding: 30px;
   }
 
-  .boards-list {
-      margin: 25px 25px 50px;
-      display: flex;
-      width: 100%;
-      gap: 20px;
-  }
   code {
     background-color: #f4f4f4;
     padding: 2px 6px;
     border-radius: 4px;
     font-family: Consolas, monospace;
+    color: #333;
   }
+
   .formula {
     font-family: 'Cambria Math', 'Latin Modern Math', serif;
-    background-color: #f9f9f9;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
     display: block;
-    margin: 10px 0;
-    padding: 10px;
+    margin: 15px 0;
+    padding: 15px;
     border-left: 4px solid #2980b9;
-  }
-  .guide {
-
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: center;
   }
 
   </style>
 </head>
 <body>
-  <div class="home-nav">
-      <div>
-          <h1>{{ username }}</h1>
-  {% if username %}
-      <a href="{{ url_for('practice') }}" class="navlink">Practice Center</a>
-      <a href="{{ url_for('study_guide') }}" class="navlink">Study Guide</a>
-      <a href="{{ url_for('home') }}" class="navlink sel">Whiteboard</a>
-      <a href="{{ url_for('logout') }}" class="navlink">Logout</a>
-  {% else %}
-      <a href="{{ url_for('login') }}">Login</a>
-      <a href="{{ url_for('register') }}">Register</a>
-  {% endif %}
-      </div>
-      <img src="{{ url_for('static', filename='babyxhub.svg') }}" alt="logo" width="100" height="100">
+  <div class="home-wrapper">
+    <div class="home-nav">
+        <div>
+            <h1>{{ username }}</h1>
+    {% if username %}
+        <a href="{{ url_for('practice') }}" class="navlink">Practice Center</a>
+        <a href="{{ url_for('study_guide') }}" class="navlink">Study Guide</a>
+        <a href="{{ url_for('home') }}" class="navlink sel">Whiteboard</a>
+        <a href="{{ url_for('logout') }}" class="navlink">Logout</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('register') }}">Register</a>
+    {% endif %}
+        </div>
+        <img src="{{ url_for('static', filename='babyxhub.svg') }}" alt="logo" width="100" height="100">
+    </div>
+    
+    <div class="guide">
+      <h1>📚 AP Statistics Study Guide (Units 6–9)</h1>
+
+      <h2>📖 Unit 6: Confidence Intervals (CIs)</h2>
+      <h3>🔹 What is a Confidence Interval?</h3>
+      <p>A confidence interval is a range of plausible values for a population parameter, based on a sample statistic.</p>
+
+      <div class="formula">Point Estimate ± (Critical Value) × (Standard Error)</div>
+
+      <h3>🔹 Confidence Level</h3>
+      <p>95% CI: If we repeated this method many times, about 95% of the intervals would capture the true parameter.</p>
+
+      <h3>🔹 Conditions for Inference</h3>
+      <ul>
+        <li><strong>Random:</strong> Data from random sample or random assignment</li>
+        <li><strong>Normal:</strong> For proportions: np ≥ 10 and n(1-p) ≥ 10; for means: population normal or n ≥ 30</li>
+        <li><strong>Independence:</strong> 10% condition if sampling without replacement</li>
+      </ul>
+
+      <h3>🔹 Formulas</h3>
+      <p><strong>One-Proportion z-Interval</strong></p>
+      <div class="formula">p̂ ± z* √( p̂(1 - p̂) / n )</div>
+
+      <p><strong>One-Sample t-Interval</strong></p>
+      <div class="formula">x̄ ± t* (s / √n)</div>
+
+      <p><strong>Two-Sample Proportions</strong></p>
+      <div class="formula">(p̂₁ - p̂₂) ± z* √( p̂₁(1 - p̂₁)/n₁ + p̂₂(1 - p̂₂)/n₂ )</div>
+
+      <p><strong>Two-Sample Means (unpaired)</strong></p>
+      <div class="formula">(x̄₁ - x̄₂) ± t* √( s₁²/n₁ + s₂²/n₂ )</div>
+
+      <h2>📖 Unit 7: Significance Tests</h2>
+      <h3>🔹 Steps in a Hypothesis Test</h3>
+      <ol>
+        <li>State Hypotheses: H₀ and Hₐ</li>
+        <li>Check Conditions</li>
+        <li>Calculate Test Statistic</li>
+        <li>Find p-value</li>
+        <li>Make a Decision</li>
+      </ol>
+
+      <h3>🔹 Test Statistics</h3>
+      <p><strong>One-Proportion z-Test</strong></p>
+      <div class="formula">z = (p̂ - p₀) / √( p₀(1 - p₀) / n )</div>
+
+      <p><strong>One-Sample t-Test</strong></p>
+      <div class="formula">t = (x̄ - μ₀) / (s / √n)</div>
+
+      <p><strong>Two-Proportion z-Test</strong></p>
+      <div class="formula">z = (p̂₁ - p̂₂) / √(p_c(1 - p_c)(1/n₁ + 1/n₂))</div>
+      <p>where p_c = combined proportion</p>
+
+      <p><strong>Two-Sample t-Test</strong></p>
+      <div class="formula">t = (x̄₁ - x̄₂) / √(s₁²/n₁ + s₂²/n₂)</div>
+
+      <h3>🔹 Errors</h3>
+      <ul>
+        <li><strong>Type I:</strong> Rejecting true H₀</li>
+        <li><strong>Type II:</strong> Failing to reject false H₀</li>
+        <li><strong>Power:</strong> Probability of rejecting a false null</li>
+      </ul>
+
+      <h2>📖 Unit 8: Inference for Categorical Data (Chi-Square Tests)</h2>
+      <h3>🔹 Types of Chi-Square Tests</h3>
+      <ul>
+        <li><strong>Goodness-of-Fit:</strong> One variable, one population</li>
+        <li><strong>Homogeneity:</strong> One variable, multiple populations</li>
+        <li><strong>Independence:</strong> Two variables, one population</li>
+      </ul>
+
+      <h3>🔹 Test Statistic</h3>
+      <div class="formula">χ² = Σ (O - E)² / E</div>
+
+      <p>df =</p>
+      <ul>
+        <li>GOF: k - 1</li>
+        <li>Homogeneity or Independence: (r - 1)(c - 1)</li>
+      </ul>
+
+      <h2>📖 Unit 9: Inference for Quantitative Data (Regression)</h2>
+      <h3>🔹 Slope Inference</h3>
+      <p>Testing for linear association between x and y</p>
+
+      <div class="formula">t = (b - 0) / SE_b</div>
+
+      <p>df = n - 2</p>
+
+      <h3>🔹 Conditions</h3>
+      <ul>
+        <li>Linear relationship (scatterplot)</li>
+        <li>Independent observations</li>
+        <li>Normality of residuals</li>
+        <li>Equal spread in residuals (homoscedasticity)</li>
+      </ul>
+
+      <h3>🔹 Confidence Interval for Slope</h3>
+      <div class="formula">b ± t* × SE_b</div>
+
+      <h2>✅ Final Exam Pro Tips</h2>
+      <ul>
+        <li>Always state parameters in context</li>
+        <li>Check and state all conditions</li>
+        <li>Use complete sentences when interpreting results</li>
+        <li>Know when to use z vs. t vs. χ²</li>
+        <li>Label calculator outputs!</li>
+      </ul>
+    </div>
   </div>
-  <h1>📚 AP Statistics Study Guide (Units 6–9)</h1>
-
-  <h2>📖 Unit 6: Confidence Intervals (CIs)</h2>
-  <h3>🔹 What is a Confidence Interval?</h3>
-  <p>A confidence interval is a range of plausible values for a population parameter, based on a sample statistic.</p>
-
-  <div class="formula">Point Estimate ± (Critical Value) × (Standard Error)</div>
-
-  <h3>🔹 Confidence Level</h3>
-  <p>95% CI: If we repeated this method many times, about 95% of the intervals would capture the true parameter.</p>
-
-  <h3>🔹 Conditions for Inference</h3>
-  <ul>
-    <li><strong>Random:</strong> Data from random sample or random assignment</li>
-    <li><strong>Normal:</strong> For proportions: np ≥ 10 and n(1-p) ≥ 10; for means: population normal or n ≥ 30</li>
-    <li><strong>Independence:</strong> 10% condition if sampling without replacement</li>
-  </ul>
-
-  <h3>🔹 Formulas</h3>
-  <p><strong>One-Proportion z-Interval</strong></p>
-  <div class="formula">p̂ ± z* √( p̂(1 - p̂) / n )</div>
-
-  <p><strong>One-Sample t-Interval</strong></p>
-  <div class="formula">x̄ ± t* (s / √n)</div>
-
-  <p><strong>Two-Sample Proportions</strong></p>
-  <div class="formula">(p̂₁ - p̂₂) ± z* √( p̂₁(1 - p̂₁)/n₁ + p̂₂(1 - p̂₂)/n₂ )</div>
-
-  <p><strong>Two-Sample Means (unpaired)</strong></p>
-  <div class="formula">(x̄₁ - x̄₂) ± t* √( s₁²/n₁ + s₂²/n₂ )</div>
-
-  <h2>📖 Unit 7: Significance Tests</h2>
-  <h3>🔹 Steps in a Hypothesis Test</h3>
-  <ol>
-    <li>State Hypotheses: H₀ and Hₐ</li>
-    <li>Check Conditions</li>
-    <li>Calculate Test Statistic</li>
-    <li>Find p-value</li>
-    <li>Make a Decision</li>
-  </ol>
-
-  <h3>🔹 Test Statistics</h3>
-  <p><strong>One-Proportion z-Test</strong></p>
-  <div class="formula">z = (p̂ - p₀) / √( p₀(1 - p₀) / n )</div>
-
-  <p><strong>One-Sample t-Test</strong></p>
-  <div class="formula">t = (x̄ - μ₀) / (s / √n)</div>
-
-  <p><strong>Two-Proportion z-Test</strong></p>
-  <div class="formula">z = (p̂₁ - p̂₂) / √(p_c(1 - p_c)(1/n₁ + 1/n₂))</div>
-  <p>where p_c = combined proportion</p>
-
-  <p><strong>Two-Sample t-Test</strong></p>
-  <div class="formula">t = (x̄₁ - x̄₂) / √(s₁²/n₁ + s₂²/n₂)</div>
-
-  <h3>🔹 Errors</h3>
-  <ul>
-    <li><strong>Type I:</strong> Rejecting true H₀</li>
-    <li><strong>Type II:</strong> Failing to reject false H₀</li>
-    <li><strong>Power:</strong> Probability of rejecting a false null</li>
-  </ul>
-
-  <h2>📖 Unit 8: Inference for Categorical Data (Chi-Square Tests)</h2>
-  <h3>🔹 Types of Chi-Square Tests</h3>
-  <ul>
-    <li><strong>Goodness-of-Fit:</strong> One variable, one population</li>
-    <li><strong>Homogeneity:</strong> One variable, multiple populations</li>
-    <li><strong>Independence:</strong> Two variables, one population</li>
-  </ul>
-
-  <h3>🔹 Test Statistic</h3>
-  <div class="formula">χ² = Σ (O - E)² / E</div>
-
-  <p>df =</p>
-  <ul>
-    <li>GOF: k - 1</li>
-    <li>Homogeneity or Independence: (r - 1)(c - 1)</li>
-  </ul>
-
-  <h2>📖 Unit 9: Inference for Quantitative Data (Regression)</h2>
-  <h3>🔹 Slope Inference</h3>
-  <p>Testing for linear association between x and y</p>
-
-  <div class="formula">t = (b - 0) / SE_b</div>
-
-  <p>df = n - 2</p>
-
-  <h3>🔹 Conditions</h3>
-  <ul>
-    <li>Linear relationship (scatterplot)</li>
-    <li>Independent observations</li>
-    <li>Normality of residuals</li>
-    <li>Equal spread in residuals (homoscedasticity)</li>
-  </ul>
-
-  <h3>🔹 Confidence Interval for Slope</h3>
-  <div class="formula">b ± t* × SE_b</div>
-
-  <h2>✅ Final Exam Pro Tips</h2>
-  <ul>
-    <li>Always state parameters in context</li>
-    <li>Check and state all conditions</li>
-    <li>Use complete sentences when interpreting results</li>
-    <li>Know when to use z vs. t vs. χ²</li>
-    <li>Label calculator outputs!</li>
-  </ul>
-
 </body>
 </html>

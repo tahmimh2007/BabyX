@@ -1,90 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>AP Statistics Multiple Choice Practice</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+<link rel="icon" type="image" href="https://creatorset.com/cdn/shop/products/Ishowspeed_image_530x@2x.jpg?v=1672258877">
+<meta charset="UTF-8">
+<title>AP Statistics Practice (Q)</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #090909;
+  color: #0a4d4d;
+  height: 100vh;
+  overflow: hidden;
+}
+.home-wrapper { display: flex; flex-direction: row; height: 100vh; }
+.home-nav {
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  width: 300px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.guide {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  height: 100vh;
+}
+h1 {
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  margin-top: 0;
+  font-size: 28px;
+}
+h3 {
+  color: rgba(255, 255, 255, 0.7);
+  text-align: left;
+  font-size: 18px;
+}
+label {
+  display: block;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 5px;
+}
+.navlink {
+  text-align: start;
+  color: rgba(255, 255, 255, 0.59);
+  width: 100%;
+  padding: 12px 25px;
+  text-decoration: none;
+  border-radius: 6px;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+.navlink:hover { background-color: rgba(255, 255, 255, 0.1); }
+img { width: 100%; height: auto; padding: 30px; }
+.feedback {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+.correct { background-color: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+.incorrect { background-color: rgba(231, 76, 60, 0.2); color: #e74c3c; }
+</style>
 </head>
 <body>
+<div class="home-wrapper">
+<div class="home-nav">
+  <div>
+    <h1>{{ username }}</h1>
+    {% if username %}
+      <a href="{{ url_for('practice') }}" class="navlink">Practice Center</a>
+      <a href="{{ url_for('study_guide') }}" class="navlink">Study Guide</a>
+      <a href="{{ url_for('home') }}" class="navlink">Whiteboard</a>
+      <a href="{{ url_for('logout') }}" class="navlink">Logout</a>
+    {% else %}
+      <a href="{{ url_for('login') }}">Login</a>
+      <a href="{{ url_for('register') }}">Register</a>
+    {% endif %}
+  </div>
+  <img src="{{ url_for('static', filename='babyxhub.svg') }}" alt="logo" width="100" height="100">
+</div>
 
-  <h1>AP Statistics Practice</h1>
+<div class="guide">
+  <h1>📚 AP Statistics Practice</h1>
 
-  <form>
+  <h3>1. Which of the following is a measure of central tendency?</h3>
+  <label><input type="radio" name="q1" value="A"> A) Range</label>
+  <label><input type="radio" name="q1" value="B"> B) Variance</label>
+  <label><input type="radio" name="q1" value="C"> C) Median</label>
+  <label><input type="radio" name="q1" value="D"> D) Standard Deviation</label>
+  <button onclick="check('q1','C','Median is a measure of central tendency.')">Submit</button>
+  <div id="feedback-q1" class="feedback"></div>
 
-  <h2>1. Which of the following is a measure of central tendency?</h2>
-  <input type="radio" name="q1"> A) Range<br>
-  <input type="radio" name="q1"> B) Variance<br>
-  <input type="radio" name="q1"> C) Median<br>
-  <input type="radio" name="q1"> D) Standard Deviation<br>
+  <h3>2. In a normal distribution, what percent falls within 1 standard deviation?</h3>
+  <label><input type="radio" name="q2" value="A"> A) 34%</label>
+  <label><input type="radio" name="q2" value="B"> B) 68%</label>
+  <label><input type="radio" name="q2" value="C"> C) 95%</label>
+  <label><input type="radio" name="q2" value="D"> D) 99.7%</label>
+  <button onclick="check('q2','B','Empirical rule: 68% fall within 1 SD.')">Submit</button>
+  <div id="feedback-q2" class="feedback"></div>
 
-  <h2>2. In a normal distribution, approximately what percent of data falls within one standard deviation of the mean?</h2>
-  <input type="radio" name="q2"> A) 34%<br>
-  <input type="radio" name="q2"> B) 68%<br>
-  <input type="radio" name="q2"> C) 95%<br>
-  <input type="radio" name="q2"> D) 99.7%<br>
+  <h3>3. What is the purpose of random assignment in an experiment?</h3>
+  <label><input type="radio" name="q3" value="A"> A) Ensure every subject gets every treatment</label>
+  <label><input type="radio" name="q3" value="B"> B) Reduce bias and create comparable groups</label>
+  <label><input type="radio" name="q3" value="C"> C) Select sample from population</label>
+  <label><input type="radio" name="q3" value="D"> D) Maximize variability</label>
+  <button onclick="check('q3','B','Random assignment balances confounding variables.')">Submit</button>
+  <div id="feedback-q3" class="feedback"></div>
 
-  <h2>3. What is the purpose of random assignment in an experiment?</h2>
-  <input type="radio" name="q3"> A) Ensure every subject gets every treatment<br>
-  <input type="radio" name="q3"> B) Reduce bias and create comparable groups<br>
-  <input type="radio" name="q3"> C) Select the sample from the population<br>
-  <input type="radio" name="q3"> D) Maximize variability<br>
+  <h3>4. If two events A and B are independent, what is P(A and B)?</h3>
+  <label><input type="radio" name="q4" value="A"> A) P(A) + P(B)</label>
+  <label><input type="radio" name="q4" value="B"> B) P(A) × P(B)</label>
+  <label><input type="radio" name="q4" value="C"> C) P(A) / P(B)</label>
+  <label><input type="radio" name="q4" value="D"> D) P(A) − P(B)</label>
+  <button onclick="check('q4','B','For independent events, multiply probabilities.')">Submit</button>
+  <div id="feedback-q4" class="feedback"></div>
 
-  <h2>4. If two events A and B are independent, what is P(A and B)?</h2>
-  <input type="radio" name="q4"> A) P(A) + P(B)<br>
-  <input type="radio" name="q4"> B) P(A) × P(B)<br>
-  <input type="radio" name="q4"> C) P(A) / P(B)<br>
-  <input type="radio" name="q4"> D) P(A) − P(B)<br>
+  <h3>5. Which display is most appropriate for showing distribution of a quantitative variable?</h3>
+  <label><input type="radio" name="q5" value="A"> A) Bar graph</label>
+  <label><input type="radio" name="q5" value="B"> B) Boxplot</label>
+  <label><input type="radio" name="q5" value="C"> C) Pie chart</label>
+  <label><input type="radio" name="q5" value="D"> D) Two-way table</label>
+  <button onclick="check('q5','B','Boxplots are ideal for quantitative data.')">Submit</button>
+  <div id="feedback-q5" class="feedback"></div>
 
-  <h2>5. Which graphical display is most appropriate for showing the distribution of a single quantitative variable?</h2>
-  <input type="radio" name="q5"> A) Bar graph<br>
-  <input type="radio" name="q5"> B) Boxplot<br>
-  <input type="radio" name="q5"> C) Pie chart<br>
-  <input type="radio" name="q5"> D) Two-way table<br>
+  <h3>6. Which conditions must be checked before one-sample t-test?</h3>
+  <label><input type="radio" name="q6" value="A"> A) Randomness, Normality, Independence</label>
+  <label><input type="radio" name="q6" value="B"> B) Randomness, Equal proportions, Normality</label>
+  <label><input type="radio" name="q6" value="C"> C) Equal means, Randomness, Normality</label>
+  <label><input type="radio" name="q6" value="D"> D) Independence, Proportionality, Randomness</label>
+  <button onclick="check('q6','A','Random sample, normality, and independence.')">Submit</button>
+  <div id="feedback-q6" class="feedback"></div>
 
-  <h2>6. Which of the following conditions must be checked before performing a one-sample t-test?</h2>
-  <input type="radio" name="q6"> A) Randomness, Normality, Independence<br>
-  <input type="radio" name="q6"> B) Randomness, Equal proportions, Normality<br>
-  <input type="radio" name="q6"> C) Equal means, Randomness, Normality<br>
-  <input type="radio" name="q6"> D) Independence, Proportionality, Randomness<br>
+  <h3>7. The correlation coefficient r measures strength of what type of relationship?</h3>
+  <label><input type="radio" name="q7" value="A"> A) Categorical</label>
+  <label><input type="radio" name="q7" value="B"> B) Nonlinear</label>
+  <label><input type="radio" name="q7" value="C"> C) Linear</label>
+  <label><input type="radio" name="q7" value="D"> D) Exponential</label>
+  <button onclick="check('q7','C','Correlation measures strength of linear association.')">Submit</button>
+  <div id="feedback-q7" class="feedback"></div>
 
-  <h2>7. The correlation coefficient r measures the strength and direction of what type of relationship?</h2>
-  <input type="radio" name="q7"> A) Categorical<br>
-  <input type="radio" name="q7"> B) Nonlinear<br>
-  <input type="radio" name="q7"> C) Linear<br>
-  <input type="radio" name="q7"> D) Exponential<br>
+  <h3>8. In hypothesis testing, what is a Type I error?</h3>
+  <label><input type="radio" name="q8" value="A"> A) Failing to reject false null hypothesis</label>
+  <label><input type="radio" name="q8" value="B"> B) Rejecting a true null hypothesis</label>
+  <label><input type="radio" name="q8" value="C"> C) Rejecting a false null hypothesis</label>
+  <label><input type="radio" name="q8" value="D"> D) Accepting a true alternative hypothesis</label>
+  <button onclick="check('q8','B','Type I = false positive, rejecting true H0.')">Submit</button>
+  <div id="feedback-q8" class="feedback"></div>
 
-  <h2>8. In hypothesis testing, what is a Type I error?</h2>
-  <input type="radio" name="q8"> A) Failing to reject a false null hypothesis<br>
-  <input type="radio" name="q8"> B) Rejecting a true null hypothesis<br>
-  <input type="radio" name="q8"> C) Rejecting a false null hypothesis<br>
-  <input type="radio" name="q8"> D) Accepting a true alternative hypothesis<br>
+  <h3>9. Which sampling method gives every student equal chance of selection?</h3>
+  <label><input type="radio" name="q9" value="A"> A) Convenience sampling</label>
+  <label><input type="radio" name="q9" value="B"> B) Voluntary response sampling</label>
+  <label><input type="radio" name="q9" value="C"> C) Simple random sampling</label>
+  <label><input type="radio" name="q9" value="D"> D) Stratified sampling</label>
+  <button onclick="check('q9','C','Simple random sampling gives equal chance.')">Submit</button>
+  <div id="feedback-q9" class="feedback"></div>
 
-  <h2>9. A researcher wants to estimate the proportion of students who prefer online classes. Which sampling method ensures every student has an equal chance of selection?</h2>
-  <input type="radio" name="q9"> A) Convenience sampling<br>
-  <input type="radio" name="q9"> B) Voluntary response sampling<br>
-  <input type="radio" name="q9"> C) Simple random sampling<br>
-  <input type="radio" name="q9"> D) Stratified sampling<br>
+  <h3>10.  Which statement about p-values is correct?</h3>
+  <label><input type="radio" name="q10" value="A"> A) Large p-value indicates strong evidence against null</label>
+  <label><input type="radio" name="q10" value="B"> B) Small p-value indicates weak evidence against null</label>
+  <label><input type="radio" name="q10" value="C"> C) Small p-value indicates strong evidence against null</label>
+  <label><input type="radio" name="q10" value="D"> D) P-value never used in decisions</label>
+  <button onclick="check('q10','C','Small p-value → strong evidence to reject null.')">Submit</button>
+  <div id="feedback-q10" class="feedback"></div>
 
-  <h2>10. Which of the following statements about p-values is correct?</h2>
-  <input type="radio" name="q10"> A) A large p-value indicates strong evidence against the null hypothesis<br>
-  <input type="radio" name="q10"> B) A small p-value indicates weak evidence against the null hypothesis<br>
-  <input type="radio" name="q10"> C) A small p-value indicates strong evidence against the null hypothesis<br>
-  <input type="radio" name="q10"> D) A p-value is never used to make decisions in hypothesis testing<br>
+</div>
+</div>
 
-  </form>
-
-  <h2>Answer Key</h2>
-  <ul>
-    <li>1: C</li>
-    <li>2: B</li>
-    <li>3: B</li>
-    <li>4: B</li>
-    <li>5: B</li>
-    <li>6: A</li>
-    <li>7: C</li>
-    <li>8: B</li>
-    <li>9: C</li>
-    <li>10: C</li>
-  </ul>
-
+<script>
+function check(question, correctAnswer, explanation) {
+  const selected = document.querySelector(`input[name="${question}"]:checked`);
+  const feedback = document.getElementById(`feedback-${question}`);
+  if (!selected) {
+    feedback.className = 'feedback incorrect';
+    feedback.innerHTML = 'Please select an answer first.';
+    return;
+  }
+  if (selected.value === correctAnswer) {
+    feedback.className = 'feedback correct';
+    feedback.innerHTML = `✅ Correct!<br>${explanation}`;
+  } else {
+    feedback.className = 'feedback incorrect';
+    feedback.innerHTML = `❌ Incorrect. Correct answer: ${correctAnswer}<br>${explanation}`;
+  }
+}
+</script>
 </body>
 </html>

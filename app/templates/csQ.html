@@ -1,110 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <link rel="icon" type="image" href="https://creatorset.com/cdn/shop/products/Ishowspeed_image_530x@2x.jpg?v=1672258877">
   <meta charset="UTF-8">
-  <title>AP CSA Last-Minute Quiz</title>
+  <title>AP Computer Science A Practice (Q)</title>
+  <style>
+    * { 
+      box-sizing: border-box; 
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #090909;
+        color: #0a4d4d;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .home-wrapper { 
+      display: flex; 
+      flex-direction: row; 
+      height: 100vh; 
+    }
+
+    .home-nav {
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        width: 300px;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        flex-shrink: 0;
+    }
+
+    .guide {
+        flex: 1;
+        padding: 30px;
+        overflow-y: auto;
+        height: 100vh;
+    }
+
+    h1 {
+        color: rgba(255, 255, 255, 0.9);
+        text-align: center;
+        margin-top: 0;
+        font-size: 28px;
+    }
+
+    h3 {
+        color: rgba(255, 255, 255, 0.7);
+        text-align: left;
+        font-size: 18px;
+    }
+
+    label {
+        display: block;
+        text-align: left;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 5px;
+    }
+
+    .navlink {
+        text-align: start;
+        color: rgba(255, 255, 255, 0.59);
+        width: 100%;
+        padding: 12px 25px;
+        text-decoration: none;
+        border-radius: 6px;
+        display: inline-block;
+        transition: background-color 0.3s ease;
+    }
+
+    .navlink:hover { 
+      background-color: rgba(255, 255, 255, 0.1); 
+    }
+
+    img { 
+      width: 100%; 
+      height: auto; 
+      padding: 30px; 
+    }
+
+    .feedback {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .correct { 
+      background-color: rgba(46, 204, 113, 0.2); 
+      color: #2ecc71; 
+    }
+
+    .incorrect { 
+      background-color: rgba(231, 76, 60, 0.2);
+      color: #e74c3c; 
+    }
+  </style>
 </head>
 <body>
+<div class="home-wrapper">
+  <div class="home-nav">
+    <div>
+      <h1>{{ username }}</h1>
+      {% if username %}
+        <a href="{{ url_for('practice') }}" class="navlink">Practice Center</a>
+        <a href="{{ url_for('study_guide') }}" class="navlink">Study Guide</a>
+        <a href="{{ url_for('home') }}" class="navlink">Whiteboard</a>
+        <a href="{{ url_for('logout') }}" class="navlink">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('register') }}">Register</a>
+      {% endif %}
+    </div>
+    <img src="{{ url_for('static', filename='babyxhub.svg') }}" alt="logo" width="100" height="100">
+  </div>
 
-  <h1>AP Computer Science A Practice</h1>
+  <div class="guide">
+    <h1>📚 AP Computer Science A Practice</h1>
 
-  <h3>1. What is the output of this code?</h3>
-  int a = 5;<br>
-  int b = 2;<br>
-  System.out.println(a / b);<br>
-  <input type="radio" name="q1"> A) 2<br>
-  <input type="radio" name="q1"> B) 2.5<br>
-  <input type="radio" name="q1"> C) 3<br>
-  <input type="radio" name="q1"> D) Compiler error<br>
+    <h3>1. What is the output of this code? int a = 5; int b = 2; System.out.println(a / b);</h3>
+    <label><input type="radio" name="q1" value="A"> A) 2</label>
+    <label><input type="radio" name="q1" value="B"> B) 2.5</label>
+    <label><input type="radio" name="q1" value="C"> C) 3</label>
+    <label><input type="radio" name="q1" value="D"> D) Compiler error</label>
+    <button onclick="check('q1','A','Integer division truncates decimal, 5/2 = 2.')">Submit</button>
+    <div id="feedback-q1" class="feedback"></div>
 
-  <h3>2. Which of the following correctly creates an ArrayList of Integers?</h3>
-  <input type="radio" name="q2"> A) ArrayList&lt;int&gt; list = new ArrayList&lt;&gt;();<br>
-  <input type="radio" name="q2"> B) ArrayList&lt;Integer&gt; list = new ArrayList&lt;&gt;();<br>
-  <input type="radio" name="q2"> C) ArrayList numbers = new ArrayList&lt;Integer&gt;();<br>
-  <input type="radio" name="q2"> D) ArrayList&lt;Double&gt; list = new ArrayList&lt;int&gt;();<br>
+    <h3>2. Which correctly creates an ArrayList of Integers?</h3>
+    <label><input type="radio" name="q2" value="A"> A) ArrayList&lt;int&gt; list = new ArrayList&lt;&gt;();</label>
+    <label><input type="radio" name="q2" value="B"> B) ArrayList&lt;Integer&gt; list = new ArrayList&lt;&gt;();</label>
+    <label><input type="radio" name="q2" value="C"> C) ArrayList numbers = new ArrayList&lt;Integer&gt;();</label>
+    <label><input type="radio" name="q2" value="D"> D) ArrayList&lt;Double&gt; list = new ArrayList&lt;int&gt;();</label>
+    <button onclick="check('q2','B','You must use Integer wrapper class with generics.')">Submit</button>
+    <div id="feedback-q2" class="feedback"></div>
 
-  <h3>3. What will this code print?</h3>
-  String s = "hello";<br>
-  System.out.println(s.substring(1, 4));<br>
-  <input type="radio" name="q3"> A) hel<br>
-  <input type="radio" name="q3"> B) ell<br>
-  <input type="radio" name="q3"> C) ello<br>
-  <input type="radio" name="q3"> D) hell<br>
+    <h3>3. What will this code print? String s = "hello"; System.out.println(s.substring(1, 4));</h3>
+    <label><input type="radio" name="q3" value="A"> A) hel</label>
+    <label><input type="radio" name="q3" value="B"> B) ell</label>
+    <label><input type="radio" name="q3" value="C"> C) ello</label>
+    <label><input type="radio" name="q3" value="D"> D) hell</label>
+    <button onclick="check('q3','B','substring(1,4) returns characters 1,2,3 → ell.')">Submit</button>
+    <div id="feedback-q3" class="feedback"></div>
 
-  <h3>4. Which statement properly overrides a method called speak() from a superclass?</h3>
-  <input type="radio" name="q4"> A) void speak() { }<br>
-  <input type="radio" name="q4"> B) public void speak() { }<br>
-  <input type="radio" name="q4"> C) @Override public void speak() { }<br>
-  <input type="radio" name="q4"> D) Both B and C<br>
+    <h3>4. Which statement properly overrides a method called speak() from a superclass?</h3>
+    <label><input type="radio" name="q4" value="A"> A) void speak() { }</label>
+    <label><input type="radio" name="q4" value="B"> B) public void speak() { }</label>
+    <label><input type="radio" name="q4" value="C"> C) @Override public void speak() { }</label>
+    <label><input type="radio" name="q4" value="D"> D) Both B and C</label>
+    <button onclick="check('q4','D','Both B and C are valid Java overrides.')">Submit</button>
+    <div id="feedback-q4" class="feedback"></div>
 
-  <h3>5. What’s wrong with this code?</h3>
-  if (x = 5) {<br>
-  &nbsp;&nbsp;System.out.println("Yes!");<br>
-  }<br>
-  <input type="radio" name="q5"> A) Nothing<br>
-  <input type="radio" name="q5"> B) Should be if (x == 5)<br>
-  <input type="radio" name="q5"> C) The variable x is undefined<br>
-  <input type="radio" name="q5"> D) Integer can’t be in an if-statement<br>
+    <h3>5. What’s wrong with this code? if (x = 5) { System.out.println("Yes!"); }</h3>
+    <label><input type="radio" name="q5" value="A"> A) Nothing</label>
+    <label><input type="radio" name="q5" value="B"> B) Should be if (x == 5)</label>
+    <label><input type="radio" name="q5" value="C"> C) Variable x is undefined</label>
+    <label><input type="radio" name="q5" value="D"> D) Integer can’t be in if-statement</label>
+    <button onclick="check('q5','B','Single = is assignment, == is comparison.')">Submit</button>
+    <div id="feedback-q5" class="feedback"></div>
 
-  <h3>6. What is the base case in this recursive method?</h3>
-  public int sumToOne(int n) {<br>
-  &nbsp;&nbsp;if (n == 1) {<br>
-  &nbsp;&nbsp;&nbsp;&nbsp;return 1;<br>
-  &nbsp;&nbsp;}<br>
-  &nbsp;&nbsp;return n + sumToOne(n - 1);<br>
-  }<br>
-  <input type="radio" name="q6"> A) if (n == 0)<br>
-  <input type="radio" name="q6"> B) return 1;<br>
-  <input type="radio" name="q6"> C) if (n == 1)<br>
-  <input type="radio" name="q6"> D) return n + sumToOne(n - 1);<br>
+    <h3>6. What is the base case in this recursive method? public int sumToOne(int n) { if (n == 1) return 1; else return n + sumToOne(n - 1); }</h3>
+    <label><input type="radio" name="q6" value="A"> A) if (n == 0)</label>
+    <label><input type="radio" name="q6" value="B"> B) return 1;</label>
+    <label><input type="radio" name="q6" value="C"> C) if (n == 1)</label>
+    <label><input type="radio" name="q6" value="D"> D) return n + sumToOne(n - 1);</label>
+    <button onclick="check('q6','C','Base case is when n equals 1.')">Submit</button>
+    <div id="feedback-q6" class="feedback"></div>
 
-  <h3>7. What is the size of nums after this runs?</h3>
-  ArrayList&lt;Integer&gt; nums = new ArrayList&lt;&gt;();<br>
-  nums.add(10);<br>
-  nums.add(20);<br>
-  nums.remove(0);<br>
-  <input type="radio" name="q7"> A) 0<br>
-  <input type="radio" name="q7"> B) 1<br>
-  <input type="radio" name="q7"> C) 2<br>
-  <input type="radio" name="q7"> D) Compiler error<br>
+    <h3>7. What is the size of nums after this runs? ArrayList&lt;Integer&gt; nums = new ArrayList&lt;&gt;(); nums.add(10); nums.add(20); nums.remove(0);</h3>
+    <label><input type="radio" name="q7" value="A"> A) 0</label>
+    <label><input type="radio" name="q7" value="B"> B) 1</label>
+    <label><input type="radio" name="q7" value="C"> C) 2</label>
+    <label><input type="radio" name="q7" value="D"> D) Compiler error</label>
+    <button onclick="check('q7','B','Two added, one removed, size is 1.')">Submit</button>
+    <div id="feedback-q7" class="feedback"></div>
 
-  <h3>8. Which expression generates a random int between 1 and 10 (inclusive)?</h3>
-  <input type="radio" name="q8"> A) (int)(Math.random() * 10 + 1)<br>
-  <input type="radio" name="q8"> B) (int)(Math.random() * 11)<br>
-  <input type="radio" name="q8"> C) (int)(Math.random() * 9 + 1)<br>
-  <input type="radio" name="q8"> D) (int)(Math.random() * 10)<br>
+    <h3>8. Which expression generates random int 1 to 10 inclusive?</h3>
+    <label><input type="radio" name="q8" value="A"> A) (int)(Math.random() * 10 + 1)</label>
+    <label><input type="radio" name="q8" value="B"> B) (int)(Math.random() * 11)</label>
+    <label><input type="radio" name="q8" value="C"> C) (int)(Math.random() * 9 + 1)</label>
+    <label><input type="radio" name="q8" value="D"> D) (int)(Math.random() * 10)</label>
+    <button onclick="check('q8','A','Correct range formula: Math.random()*10+1.')">Submit</button>
+    <div id="feedback-q8" class="feedback"></div>
 
-  <h3>9. How many times does this loop print “Hi”?</h3>
-  for (int i = 0; i &lt;= 4; i++) {<br>
-  &nbsp;&nbsp;System.out.println("Hi");<br>
-  }<br>
-  <input type="radio" name="q9"> A) 4<br>
-  <input type="radio" name="q9"> B) 5<br>
-  <input type="radio" name="q9"> C) 6<br>
-  <input type="radio" name="q9"> D) Infinite<br>
+    <h3>9. How many times does this loop print “Hi”? for (int i = 0; i <= 4; i++) System.out.println("Hi");</h3>
+    <label><input type="radio" name="q9" value="A"> A) 4</label>
+    <label><input type="radio" name="q9" value="B"> B) 5</label>
+    <label><input type="radio" name="q9" value="C"> C) 6</label>
+    <label><input type="radio" name="q9" value="D"> D) Infinite</label>
+    <button onclick="check('q9','B','Loop runs for i=0 to 4: 5 times.')">Submit</button>
+    <div id="feedback-q9" class="feedback"></div>
 
-  <h3>10. What does this method return?</h3>
-  public int square(int n) {<br>
-  &nbsp;&nbsp;return n * n;<br>
-  }<br>
-  <input type="radio" name="q10"> A) n * 2<br>
-  <input type="radio" name="q10"> B) n * n<br>
-  <input type="radio" name="q10"> C) n * n * n<br>
-  <input type="radio" name="q10"> D) n + n<br>
+    <h3>10. What does this method return? public int square(int n) { return n * n; }</h3>
+    <label><input type="radio" name="q10" value="A"> A) n * 2</label>
+    <label><input type="radio" name="q10" value="B"> B) n * n</label>
+    <label><input type="radio" name="q10" value="C"> C) n * n * n</label>
+    <label><input type="radio" name="q10" value="D"> D) n + n</label>
+    <button onclick="check('q10','B','Returns n multiplied by itself.')">Submit</button>
+    <div id="feedback-q10" class="feedback"></div>
 
-  <h2>Answers:</h2>
-  <ol>
-    <li>1: A</li>
-    <li>2: B</li>
-    <li>3: B</li>
-    <li>4: D</li>
-    <li>5: B</li>
-    <li>6: C</li>
-    <li>7: B</li>
-    <li>8: A</li>
-    <li>9: B</li>
-    <li>10: B</li>
-  </ol>
+  </div>
+</div>
 
+
+<script>
+  function check(question, correctAnswer, explanation) {
+    const selected = document.querySelector(`input[name="${question}"]:checked`);
+    const feedback = document.getElementById(`feedback-${question}`);
+    if (!selected) {
+      feedback.className = 'feedback incorrect';
+      feedback.innerHTML = 'Please select an answer first.';
+      return;
+    }
+    if (selected.value === correctAnswer) {
+      feedback.className = 'feedback correct';
+      feedback.innerHTML = `✅ Correct!<br>${explanation}`;
+    } else {
+      feedback.className = 'feedback incorrect';
+      feedback.innerHTML = `❌ Incorrect. Correct answer: ${correctAnswer}<br>${explanation}`;
+    }
+  }
+</script>
 </body>
 </html>

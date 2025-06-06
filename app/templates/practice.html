@@ -1,33 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel ="icon" type = "image" href = "https://creatorset.com/cdn/shop/products/Ishowspeed_image_530x@2x.jpg?v=1672258877">
-    <title>Practice</title>
+    <link rel="icon" type="image" href="https://creatorset.com/cdn/shop/products/Ishowspeed_image_530x@2x.jpg?v=1672258877">
+    <title>Practice Center</title>
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        .home-wrapper {
-            display: flex;
-            flex-direction: row;
-            justify-content: start;
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #090909;
+            color: #0a4d4d;
             height: 100vh;
+            overflow: hidden;
         }
-
-        .home-details {
-            width: 700px;
-            margin-left: 30px;
-            margin-top: 20px;
-        }
-
-        img {
-            width: 100%;
-            height: auto;
-            padding: 30px;
-        }
-
+        
+        .home-wrapper { 
+            display: flex; 
+            flex-direction: row; 
+            height: 100vh; }
         .home-nav {
             border-right: 1px solid rgba(255, 255, 255, 0.1);
             width: 300px;
@@ -35,14 +26,13 @@
             display: flex;
             justify-content: space-between;
             flex-direction: column;
+            flex-shrink: 0;
         }
-
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #090909;
-            color: #0a4d4d;
-            text-align: center;
+        .home-details {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            height: 100vh;
         }
         h1 {
             padding: 0px 25px;
@@ -51,7 +41,6 @@
             margin-top: 40px;
             font-size: 24px;
         }
-
         h2 {
             padding: 0px 25px;
             color: rgba(181, 181, 181, 0.59);
@@ -60,7 +49,6 @@
             font-size: 18px;
             font-weight: normal;
         }
-
         .navlink {
             text-align: start;
             color: rgba(255, 255, 255, 0.59);
@@ -71,11 +59,8 @@
             display: inline-block;
             transition: background-color 0.3s ease;
         }
-
-        .navlink:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
+        .navlink:hover { background-color: rgba(255, 255, 255, 0.1); }
+        img { width: 100%; height: auto; padding: 30px; }
         .create {
             background-color: transparent;
             border: 1px dashed rgba(78, 78, 78, 0.59);
@@ -89,15 +74,20 @@
             flex-direction: column;
             gap: 10px;
             width: 250px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-
+        .create:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
         .boards-list {
             margin: 25px 25px 50px;
             display: flex;
             width: 100%;
             gap: 20px;
+            flex-wrap: wrap;
         }
-
     </style>
 </head>
 <body>
@@ -119,22 +109,20 @@
     </div>
 
     <div class="home-details">
-        <h1>Premade Practice Resources</h1>
-        <h2>Access curated practice materials that you may incorporate.</h2>
+        <h1>Practice Questions</h1>
+        <h2>Access interactive practice problems.</h2>
         <div class="boards-list">
             <div class="create">
-                <i class="bx bx-book bx-md"></i>
-                Start a Session
+                <i class="bx bx-question-mark bx-md"></i>
+                <a href="{{ url_for('calcQ') }}">AP Calculus BC (Q)</a>
             </div>
-        </div>
-        <h1>AI Material</h1>
-        <h2>Access unlimited AI training that adapts to your progress.</h2>
-        <div class="boards-list">
             <div class="create">
-                <i class="bx bx-star bx-md"></i>
-                <a href="{{ url_for('whiteboard') }}">
-                    Start a Session
-                </a>
+                <i class="bx bx-question-mark bx-md"></i>
+                <a href="{{ url_for('csQ') }}">AP Computer Science A (Q)</a>
+            </div>
+            <div class="create">
+                <i class="bx bx-question-mark bx-md"></i>
+                <a href="{{ url_for('statsQ') }}">AP Statistics (Q)</a>
             </div>
         </div>
     </div>

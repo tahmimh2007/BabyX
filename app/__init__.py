@@ -67,16 +67,35 @@ def cs():
         return render_template("cs.html", username=session["username"])
     return redirect(url_for("login"))
 
+@app.route("/csQ")
+def csQ():
+    if "username" in session:
+        return render_template("csQ.html", username=session["username"])
+    return redirect(url_for("login"))
+
 @app.route("/calc")
 def calc():
     if "username" in session:
         return render_template("calc.html", username=session["username"])
     return redirect(url_for("login"))
 
+
+@app.route("/calcQ")
+def calcQ():
+    if "username" in session:
+        return render_template("calcQ.html", username=session["username"])
+    return redirect(url_for("login"))
+
 @app.route("/stats")
 def stats():
     if "username" in session:
-        return render_template("calc.html", username=session["username"])
+        return render_template("stats.html", username=session["username"])
+    return redirect(url_for("login"))
+
+@app.route("/statsQ")
+def statsQ():
+    if "username" in session:
+        return render_template("statsQ.html", username=session["username"])
     return redirect(url_for("login"))
 
 @app.route("/whiteboard")

@@ -1,88 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <link rel="icon" type="image" href="https://creatorset.com/cdn/shop/products/Ishowspeed_image_530x@2x.jpg?v=1672258877">
   <meta charset="UTF-8">
-  <title>AP Calculus BC Multiple Choice Practice</title>
+  <title>AP Calculus BC Practice (Q)</title>
+  <style>
+    * { 
+      box-sizing: border-box; 
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #090909;
+        color: #0a4d4d;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .home-wrapper { 
+      display: flex; 
+      flex-direction: row; 
+      height: 100vh; 
+    }
+
+    .home-nav {
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        width: 300px;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        flex-shrink: 0;
+    }
+
+    .guide {
+        flex: 1;
+        padding: 30px;
+        overflow-y: auto;
+        height: 100vh;
+    }
+
+    h1 {
+        color: rgba(255, 255, 255, 0.9);
+        text-align: center;
+        margin-top: 0;
+        font-size: 28px;
+    }
+
+    h3 {
+        color: rgba(255, 255, 255, 0.7);
+        text-align: left;
+        font-size: 18px;
+    }
+
+    label {
+        display: block;
+        text-align: left;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 5px;
+    }
+
+    .navlink {
+        text-align: start;
+        color: rgba(255, 255, 255, 0.59);
+        width: 100%;
+        padding: 12px 25px;
+        text-decoration: none;
+        border-radius: 6px;
+        display: inline-block;
+        transition: background-color 0.3s ease;
+    }
+
+    .navlink:hover { 
+      background-color: rgba(255, 255, 255, 0.1); 
+    }
+
+    img { 
+      width: 100%; 
+      height: auto; 
+      padding: 30px; 
+    }
+
+    .feedback {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .correct { 
+      background-color: rgba(46, 204, 113, 0.2); 
+      color: #2ecc71; 
+    }
+
+    .incorrect { 
+      background-color: rgba(231, 76, 60, 0.2); 
+      color: #e74c3c; 
+    }
+  </style>
 </head>
 <body>
+<div class="home-wrapper">
+  <div class="home-nav">
+    <div>
+      <h1>{{ username }}</h1>
+      {% if username %}
+        <a href="{{ url_for('practice') }}" class="navlink">Practice Center</a>
+        <a href="{{ url_for('study_guide') }}" class="navlink">Study Guide</a>
+        <a href="{{ url_for('home') }}" class="navlink">Whiteboard</a>
+        <a href="{{ url_for('logout') }}" class="navlink">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('register') }}">Register</a>
+      {% endif %}
+    </div>
+    <img src="{{ url_for('static', filename='babyxhub.svg') }}" alt="logo" width="100" height="100">
+  </div>
 
-  <h1>AP Calculus BC Practice</h1>
+  <div class="guide">
+    <h1>📚 AP Calculus BC Practice</h1>
 
-  <h2>1. Evaluate the limit: lim(x → 3) (x² − 9) / (x − 3)</h2>
-  <form>
-    <input type="radio" name="q1"> A) 0<br>
-    <input type="radio" name="q1"> B) 3<br>
-    <input type="radio" name="q1"> C) 6<br>
-    <input type="radio" name="q1"> D) Undefined<br>
+    <h3>1. Evaluate the limit: lim(x → 3) (x² − 9) / (x − 3)</h3>
+    <label><input type="radio" name="q1" value="A"> A) 0</label>
+    <label><input type="radio" name="q1" value="B"> B) 3</label>
+    <label><input type="radio" name="q1" value="C"> C) 6</label>
+    <label><input type="radio" name="q1" value="D"> D) Undefined</label>
+    <button onclick="check('q1','C','Factor numerator to (x+3)(x-3), simplify and substitute x=3.')">Submit</button>
+    <div id="feedback-q1" class="feedback"></div>
 
-  <h2>2. Find d/dx [sin(x²)]</h2>
-    <input type="radio" name="q2"> A) 2x cos(x²)<br>
-    <input type="radio" name="q2"> B) cos(x²)<br>
-    <input type="radio" name="q2"> C) 2x sin(x)<br>
-    <input type="radio" name="q2"> D) cos(2x)<br>
+    <h3>2. Find d/dx [sin(x²)]</h3>
+    <label><input type="radio" name="q2" value="A"> A) 2x cos(x²)</label>
+    <label><input type="radio" name="q2" value="B"> B) cos(x²)</label>
+    <label><input type="radio" name="q2" value="C"> C) 2x sin(x)</label>
+    <label><input type="radio" name="q2" value="D"> D) cos(2x)</label>
+    <button onclick="check('q2','A','Chain rule applied: derivative of sin(u) is cos(u)·du/dx.')">Submit</button>
+    <div id="feedback-q2" class="feedback"></div>
 
-  <h2>3. Given x² + y² = 25, find dy/dx</h2>
-    <input type="radio" name="q3"> A) x/y<br>
-    <input type="radio" name="q3"> B) y/x<br>
-    <input type="radio" name="q3"> C) -x/y<br>
-    <input type="radio" name="q3"> D) -y/x<br>
+    <h3>3. Given x² + y² = 25, find dy/dx</h3>
+    <label><input type="radio" name="q3" value="A"> A) x/y</label>
+    <label><input type="radio" name="q3" value="B"> B) y/x</label>
+    <label><input type="radio" name="q3" value="C"> C) -x/y</label>
+    <label><input type="radio" name="q3" value="D"> D) -y/x</label>
+    <button onclick="check('q3','C','Implicit differentiation gives dy/dx = -x/y.')">Submit</button>
+    <div id="feedback-q3" class="feedback"></div>
 
-  <h2>4. A balloon rises at 5 ft/sec from a point 60 ft away. How fast is the angle of elevation θ changing when the balloon is 80 ft high?</h2>
-    <input type="radio" name="q4"> A) 0.05 rad/sec<br>
-    <input type="radio" name="q4"> B) 0.04 rad/sec<br>
-    <input type="radio" name="q4"> C) 0.06 rad/sec<br>
-    <input type="radio" name="q4"> D) 0.03 rad/sec<br>
+    <h3>4. A balloon rises at 5 ft/sec from a point 60 ft away. How fast is θ changing when balloon is 80 ft high?</h3>
+    <label><input type="radio" name="q4" value="A"> A) 0.05 rad/sec</label>
+    <label><input type="radio" name="q4" value="B"> B) 0.04 rad/sec</label>
+    <label><input type="radio" name="q4" value="C"> C) 0.06 rad/sec</label>
+    <label><input type="radio" name="q4" value="D"> D) 0.03 rad/sec</label>
+    <button onclick="check('q4','B','Use related rates and implicit differentiation on right triangle.')">Submit</button>
+    <div id="feedback-q4" class="feedback"></div>
 
-  <h2>5. Find the dimensions of a rectangle with perimeter 20 and maximum area.</h2>
-    <input type="radio" name="q5"> A) 5 × 5<br>
-    <input type="radio" name="q5"> B) 10 × 10<br>
-    <input type="radio" name="q5"> C) 8 × 2<br>
-    <input type="radio" name="q5"> D) 6 × 4<br>
+    <h3>5. Find dimensions of rectangle with perimeter 20 and maximum area.</h3>
+    <label><input type="radio" name="q5" value="A"> A) 5 × 5</label>
+    <label><input type="radio" name="q5" value="B"> B) 10 × 10</label>
+    <label><input type="radio" name="q5" value="C"> C) 8 × 2</label>
+    <label><input type="radio" name="q5" value="D"> D) 6 × 4</label>
+    <button onclick="check('q5','A','Square gives maximum area when perimeter fixed.')">Submit</button>
+    <div id="feedback-q5" class="feedback"></div>
 
-  <h2>6. Evaluate ∫₀² (3x² − 2x + 1) dx</h2>
-    <input type="radio" name="q6"> A) 6<br>
-    <input type="radio" name="q6"> B) 8<br>
-    <input type="radio" name="q6"> C) 10<br>
-    <input type="radio" name="q6"> D) 12<br>
+    <h3>6. Evaluate ∫₀² (3x² − 2x + 1) dx</h3>
+    <label><input type="radio" name="q6" value="A"> A) 6</label>
+    <label><input type="radio" name="q6" value="B"> B) 8</label>
+    <label><input type="radio" name="q6" value="C"> C) 10</label>
+    <label><input type="radio" name="q6" value="D"> D) 12</label>
+    <button onclick="check('q6','C','Integrate polynomial term-by-term.')">Submit</button>
+    <div id="feedback-q6" class="feedback"></div>
 
-  <h2>7. Find the volume of the solid generated by rotating y = √x from 0 to 4 about the x-axis.</h2>
-    <input type="radio" name="q7"> A) 8π<br>
-    <input type="radio" name="q7"> B) 16π<br>
-    <input type="radio" name="q7"> C) 32π<br>
-    <input type="radio" name="q7"> D) 64π<br>
+    <h3>7. Find volume of solid generated by rotating y=√x from 0 to 4 about x-axis.</h3>
+    <label><input type="radio" name="q7" value="A"> A) 8π</label>
+    <label><input type="radio" name="q7" value="B"> B) 16π</label>
+    <label><input type="radio" name="q7" value="C"> C) 32π</label>
+    <label><input type="radio" name="q7" value="D"> D) 64π</label>
+    <button onclick="check('q7','B','Use disk method with integral of x from 0 to 4.')">Submit</button>
+    <div id="feedback-q7" class="feedback"></div>
 
-  <h2>8. Given x(t) = t² and y(t) = t³, find dy/dx at t = 2.</h2>
-    <input type="radio" name="q8"> A) 3<br>
-    <input type="radio" name="q8"> B) 4<br>
-    <input type="radio" name="q8"> C) 6<br>
-    <input type="radio" name="q8"> D) 8<br>
+    <h3>8. Given x(t)=t², y(t)=t³, find dy/dx at t=2.</h3>
+    <label><input type="radio" name="q8" value="A"> A) 3</label>
+    <label><input type="radio" name="q8" value="B"> B) 4</label>
+    <label><input type="radio" name="q8" value="C"> C) 6</label>
+    <label><input type="radio" name="q8" value="D"> D) 8</label>
+    <button onclick="check('q8','C','dy/dx = (dy/dt)/(dx/dt) = (3t²)/(2t).')">Submit</button>
+    <div id="feedback-q8" class="feedback"></div>
 
-  <h2>9. Test the convergence of the series Σ (5ⁿ / n!) from n = 1 to ∞ using the Ratio Test.</h2>
-    <input type="radio" name="q9"> A) Divergent<br>
-    <input type="radio" name="q9"> B) Convergent<br>
-    <input type="radio" name="q9"> C) Inconclusive<br>
-    <input type="radio" name="q9"> D) Oscillating<br>
+    <h3>9. Test convergence of Σ (5ⁿ / n!) using Ratio Test.</h3>
+    <label><input type="radio" name="q9" value="A"> A) Divergent</label>
+    <label><input type="radio" name="q9" value="B"> B) Convergent</label>
+    <label><input type="radio" name="q9" value="C"> C) Inconclusive</label>
+    <label><input type="radio" name="q9" value="D"> D) Oscillating</label>
+    <button onclick="check('q9','B','Ratio test limit approaches 0, so convergent.')">Submit</button>
+    <div id="feedback-q9" class="feedback"></div>
 
-  <h2>10. What is the Maclaurin series for cos(x) up to the x⁴ term?</h2>
-    <input type="radio" name="q10"> A) 1 − x² + x⁴<br>
-    <input type="radio" name="q10"> B) 1 − (x² / 2) + (x⁴ / 24)<br>
-    <input type="radio" name="q10"> C) 1 − (x² / 2) + (x⁴ / 4)<br>
-    <input type="radio" name="q10"> D) 1 + (x² / 2) − (x⁴ / 24)<br>
-  </form>
+    <h3>10. Maclaurin series for cos(x) up to x⁴ term:</h3>
+    <label><input type="radio" name="q10" value="A"> A) 1 − x² + x⁴</label>
+    <label><input type="radio" name="q10" value="B"> B) 1 − (x² / 2) + (x⁴ / 24)</label>
+    <label><input type="radio" name="q10" value="C"> C) 1 − (x² / 2) + (x⁴ / 4)</label>
+    <label><input type="radio" name="q10" value="D"> D) 1 + (x² / 2) − (x⁴ / 24)</label>
+    <button onclick="check('q10','B','Maclaurin: 1 − x²/2! + x⁴/4! gives correct terms.')">Submit</button>
+    <div id="feedback-q10" class="feedback"></div>
 
-  <h2>Answer Key</h2>
-  <ul>
-    <li>1: C</li>
-    <li>2: A</li>
-    <li>3: C</li>
-    <li>4: B</li>
-    <li>5: A</li>
-    <li>6: C</li>
-    <li>7: B</li>
-    <li>8: C</li>
-    <li>9: B</li>
-    <li>10: B</li>
-  </ul>
+  </div>
+</div>
 
+<script>
+  function check(question, correctAnswer, explanation) {
+    const selected = document.querySelector(`input[name="${question}"]:checked`);
+    const feedback = document.getElementById(`feedback-${question}`);
+    if (!selected) {
+      feedback.className = 'feedback incorrect';
+      feedback.innerHTML = 'Please select an answer first.';
+      return;
+    }
+    if (selected.value === correctAnswer) {
+      feedback.className = 'feedback correct';
+      feedback.innerHTML = `✅ Correct!<br>${explanation}`;
+    } else {
+      feedback.className = 'feedback incorrect';
+      feedback.innerHTML = `❌ Incorrect. Correct answer: ${correctAnswer}<br>${explanation}`;
+    }
+  }
+</script>
 </body>
 </html>
